@@ -145,6 +145,8 @@ BOOL jumping = false;
     paused = true;
     
     [_hero.animationManager setPaused:true];
+    [_hero stopAllActions];
+    _hero.physicsBody.affectedByGravity = false;
     [_background.animationManager setPaused:true];
     [self setUserInteractionEnabled:false];
     
@@ -234,7 +236,10 @@ BOOL jumping = false;
     [self setup_menu];
     [self setUserInteractionEnabled:true];
     
+    
+    _hero.physicsBody.affectedByGravity = true;
     [_hero.animationManager setPaused:false];
+    _hero.physicsBody.affectedByGravity = true;
     [_background.animationManager setPaused:false];
     
     paused = false;
@@ -242,7 +247,7 @@ BOOL jumping = false;
 
 - (void)setup_menu
 {
-    CCSpriteFrame * btn_pause_sprite = [CCSpriteFrame frameWithImageNamed:@"btn_no_sound.png"];
+    CCSpriteFrame * btn_pause_sprite = [CCSpriteFrame frameWithImageNamed:@"btn_pause.png"];
     
     CCButton *btn_pause = [CCButton buttonWithTitle:@"" spriteFrame:btn_pause_sprite];
     [btn_pause setTarget:self selector:@selector(pause_game:)];
@@ -312,7 +317,8 @@ BOOL jumping = false;
 
 - (void)update:(CCTime)delta
 {
-    if( !paused ){
+    if( !paused )
+    {
         // loop the ground
         for (CCNode *ground in _grounds)
         {
@@ -334,7 +340,7 @@ BOOL jumping = false;
         _physicsNode.position = ccp(_physicsNode.position.x - ( scrollSpeed * delta), _physicsNode.position.y);
     }
     
-    if(playing)
+    if(playing && !paused)
     {
         NSMutableArray *offScreenObstacles = nil;
         
