@@ -23,6 +23,7 @@ BOOL jumping = false;
     CCSprite *_hero;
     CCNode *_ground1;
     CCNode *_ground2;
+    CCNode *_background;
     CCNode *_startButton;
     
     CCNode *weapon;
@@ -41,8 +42,6 @@ BOOL jumping = false;
     NSInteger hero_y_ini_pos;
     NSInteger points;
     CCLabelTTF *score_label;
-    //NSString *obstacles_cbs[2] = {@"Obstacle", @"obstacle_triangle",nil};
-    //NSArray *obstacles_cbs = [NSArray arrayWithObjects:@"Obstacle",@"obstacle_triangle",nil];
 }
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero level:(CCNode *)level
 {
@@ -97,10 +96,6 @@ BOOL jumping = false;
 
 -(void)jumpRunner
 {
-    //
-    //    id jump = [CCActionJumpBy actionWithDuration:1.f position:ccp(0, 1)
-    //                                    height:100 jumps:1];
-    //    [_hero runAction:jump];
     [_hero.animationManager runAnimationsForSequenceNamed:@"jumping"];
     id Jump_Up = [CCActionJumpBy actionWithDuration:0.2f position:ccp(0,120) height:20 jumps:1];
     id jumping = [CCActionJumpBy actionWithDuration:0.3f position:ccp(0,-120) height:20 jumps:1];
@@ -119,23 +114,19 @@ BOOL jumping = false;
     _obstacles = [NSMutableArray array];
     _fireballs = [NSMutableArray array];
     
-    [self removeChild:_startButton];
-    
     hero_y_ini_pos = [[NSString stringWithFormat: @"%.2f", _hero.position.y] integerValue];
     
     firstObstaclePosition = (_hero.position.x - _hero.contentSize.width) + winSize.width;
     obstaclesMaxQt = ( winSize.width / (int) distanceBetweenObstacles ) * 2;
+    weapon = (CCNode *) [CCBReader load:weapons_cbs[0]];
+    
     [self spawnNewObstacle];
     [self spawnNewObstacle];
     [self addChild:score_label];
-
     [self setup_menu];
-    
-    weapon = (CCNode *) [CCBReader load:weapons_cbs[0]];
+    [self removeChild:_startButton];
     
     playing = true;
-    //CCScene *MainScene = [CCBReader loadAsScene:@"MainScene"];
-    //[[CCDirector sharedDirector] replaceScene:MainScene];
 }
 
 //-(void) addSwipeToJumpGesture {
@@ -154,6 +145,22 @@ BOOL jumping = false;
     paused = true;
     
     [_hero.animationManager setPaused:true];
+    [_background.animationManager setPaused:true];
+    [self setUserInteractionEnabled:false];
+    
+    CCSprite *pause_bg = [CCSprite spriteWithImageNamed:@"pause_bg.png"];
+    pause_bg.position = ccp(winSize.width/2, winSize.height/2);
+    pause_bg.anchorPoint = ccp(0.5f, 0.5f);
+    pause_bg.name = @"pause_bg";
+    
+    CCSprite *pause_title = [CCSprite spriteWithImageNamed:@"pause_title.png"];
+    pause_title.position = ccp(winSize.width/2, winSize.height/2 + 100);
+    pause_title.anchorPoint = ccp(0.5f, 0.5f);
+    pause_title.name = @"pause_title";
+    
+    CCSpriteFrame * btn_resume_background = [CCSpriteFrame frameWithImageNamed:@"btn_resume.png"];
+    CCButton *btn_resume = [CCButton buttonWithTitle:@"" spriteFrame:btn_resume_background];
+    [btn_resume setTarget:self selector:@selector(resume:)];
     
     CCSpriteFrame * btn_sound_background = [CCSpriteFrame frameWithImageNamed:@"btn_no_sound.png"];
     CCButton *btn_sound = [CCButton buttonWithTitle:@"" spriteFrame:btn_sound_background];
@@ -163,7 +170,6 @@ BOOL jumping = false;
     
     CCSpriteFrame * btn_noads_background = [CCSpriteFrame frameWithImageNamed:@"btn_no_ads.png"];
     CCButton *btn_noads = [CCButton buttonWithTitle:@"" spriteFrame:btn_noads_background];
-    [btn_noads setTarget:self selector:@selector(return_from_pause:)];
     
     /*CCSpriteFrame * btn_launcher_fb_background = [CCSpriteFrame frameWithImageNamed:@"button_launch_fb_small.png"];
      CCButton *btn_launch = [CCButton buttonWithTitle:@"" spriteFrame:btn_launcher_fb_background];
@@ -171,37 +177,66 @@ BOOL jumping = false;
      btn_launch.exclusiveTouch = NO;
      btn_launch.claimsUserInteraction = NO;*/
     
+    CCLayoutBox *menu_pause_container   = [[CCLayoutBox alloc] init];
+    menu_pause_container.direction      = CCLayoutBoxDirectionVertical;
+    menu_pause_container.spacing        = 20.f;
+    menu_pause_container.position               = ccp(winSize.width/2, 50);
+    menu_pause_container.anchorPoint            = ccp(0.5, 0.0);
+    menu_pause_container.cascadeColorEnabled    = YES;
+    menu_pause_container.cascadeOpacityEnabled  = YES;
+    menu_pause_container.name = @"pause_menu";
     
+    CCLayoutBox *up_items   = [[CCLayoutBox alloc] init];
+    up_items.direction      = CCLayoutBoxDirectionHorizontal;
+    up_items.spacing        = 20.f;
+    
+    CCLayoutBox *down_items   = [[CCLayoutBox alloc] init];
+    down_items.direction      = CCLayoutBoxDirectionHorizontal;
+    down_items.spacing        = 20.f;
+
     NSArray *menu_items = @[btn_sound, btn_score, btn_noads];
 
-    pause_menu                        = [[CCLayoutBox alloc] init];
+    /*pause_menu                        = [[CCLayoutBox alloc] init];
     pause_menu.direction              = CCLayoutBoxDirectionHorizontal;
     pause_menu.spacing                = 30.0f;
     pause_menu.position               = ccp(winSize.width/2, 50);
     pause_menu.anchorPoint            = ccp(0.5, 0.0);
     pause_menu.cascadeColorEnabled    = YES;
-    pause_menu.cascadeOpacityEnabled  = YES;
+    pause_menu.cascadeOpacityEnabled  = YES;*/
+    
     
     for(CCNode* item in menu_items)
     {
         item.cascadeColorEnabled = item.cascadeOpacityEnabled = YES;
-        [pause_menu addChild:item];
+        [down_items addChild:item];
     }
     pause_menu.opacity = 0.0f;
-    
     [pause_menu runAction:[CCActionFadeIn actionWithDuration:0.3f]];
     
-    [self addChild:pause_menu];
-    //[self removeChild:menu_box];
+    [up_items addChild:btn_resume];
+    
+    [menu_pause_container addChild:down_items];
+    [menu_pause_container addChild:up_items];
+    
+    [self addChild:pause_bg z:0];
+    [self addChild:pause_title z:1];
+    [self addChild:menu_pause_container z:2];
+    
     [self removeChildByName:@"menu_box"];
     
 }
 
--(void) return_from_pause:(id)sender
+-(void) resume:(id)sender
 {
-    [self removeChild:pause_menu];
+    [self removeChildByName:@"pause_title"];
+    [self removeChildByName:@"pause_menu"];
+    [self removeChildByName:@"pause_bg"];
     [self setup_menu];
+    [self setUserInteractionEnabled:true];
+    
     [_hero.animationManager setPaused:false];
+    [_background.animationManager setPaused:false];
+    
     paused = false;
 }
 

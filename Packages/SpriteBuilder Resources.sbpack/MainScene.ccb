@@ -2296,7 +2296,7 @@
 				<key>displayName</key>
 				<string>background day</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>_background</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -2321,8 +2321,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>-246.85270690917969</real>
-							<real>-4.0000057220458984</real>
+							<real>-6.6000247001647949</real>
+							<real>-4.0000066757202148</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -2396,6 +2396,8 @@
 						<array/>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -2434,8 +2436,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>0.5</real>
-							<real>0.66725349426269531</real>
+							<real>0.6797601580619812</real>
+							<real>0.84433680772781372</real>
 							<integer>0</integer>
 							<integer>2</integer>
 							<integer>2</integer>
@@ -2448,8 +2450,8 @@
 						<string>Point</string>
 						<key>value</key>
 						<array>
-							<real>0.5</real>
-							<real>0.5</real>
+							<real>1</real>
+							<real>1</real>
 						</array>
 					</dict>
 					<dict>
@@ -3473,7 +3475,7 @@
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>9.6999998092651367</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
