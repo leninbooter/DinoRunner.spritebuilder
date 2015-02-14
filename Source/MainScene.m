@@ -18,12 +18,18 @@ NSString *weapons_cbs[1]    = {@"weapon_fireball"};
 BOOL jumping = false;
 
 @implementation MainScene {
-    CCSprite *_hero;
     CCPhysicsNode *_physicsNode;
+
+    CCSprite *_hero;
     CCNode *_ground1;
     CCNode *_ground2;
     CCNode *_startButton;
+    
     CCNode *weapon;
+
+    // Menus
+    //CCLayoutBox *menu_box;
+    CCLayoutBox *pause_menu;
     
     //CCNode *_goal;
     NSArray *_grounds;
@@ -89,6 +95,20 @@ BOOL jumping = false;
     [UIView commitAnimations];
 }
 
+-(void)jumpRunner
+{
+    //
+    //    id jump = [CCActionJumpBy actionWithDuration:1.f position:ccp(0, 1)
+    //                                    height:100 jumps:1];
+    //    [_hero runAction:jump];
+    [_hero.animationManager runAnimationsForSequenceNamed:@"jumping"];
+    id Jump_Up = [CCActionJumpBy actionWithDuration:0.2f position:ccp(0,120) height:20 jumps:1];
+    id jumping = [CCActionJumpBy actionWithDuration:0.3f position:ccp(0,-120) height:20 jumps:1];
+    id seq = [CCActionSequence actions:Jump_Up, jumping, nil];
+    [_hero runAction:seq];
+}
+
+
 - (void)launch_fb_Button_Tapped:(id)sender
 {
     [self spawnNewFireball];
@@ -129,21 +149,12 @@ BOOL jumping = false;
 //    [_hero runAction:jump];
 //}
 
--(void)jumpRunner
-{
-    //
-    //    id jump = [CCActionJumpBy actionWithDuration:1.f position:ccp(0, 1)
-    //                                    height:100 jumps:1];
-    //    [_hero runAction:jump];
-    [_hero.animationManager runAnimationsForSequenceNamed:@"jumping"];
-    id Jump_Up = [CCActionJumpBy actionWithDuration:0.2f position:ccp(0,120) height:20 jumps:1];
-    id jumping = [CCActionJumpBy actionWithDuration:0.3f position:ccp(0,-120) height:20 jumps:1];
-    id seq = [CCActionSequence actions:Jump_Up, jumping, nil];
-    [_hero runAction:seq];
-}
-
 - (void)pause_game:(id)sender
 {
+    paused = true;
+    
+    [_hero.animationManager setPaused:true];
+    
     CCSpriteFrame * btn_sound_background = [CCSpriteFrame frameWithImageNamed:@"btn_no_sound.png"];
     CCButton *btn_sound = [CCButton buttonWithTitle:@"" spriteFrame:btn_sound_background];
     
@@ -152,6 +163,7 @@ BOOL jumping = false;
     
     CCSpriteFrame * btn_noads_background = [CCSpriteFrame frameWithImageNamed:@"btn_no_ads.png"];
     CCButton *btn_noads = [CCButton buttonWithTitle:@"" spriteFrame:btn_noads_background];
+    [btn_noads setTarget:self selector:@selector(return_from_pause:)];
     
     /*CCSpriteFrame * btn_launcher_fb_background = [CCSpriteFrame frameWithImageNamed:@"button_launch_fb_small.png"];
      CCButton *btn_launch = [CCButton buttonWithTitle:@"" spriteFrame:btn_launcher_fb_background];
@@ -161,8 +173,8 @@ BOOL jumping = false;
     
     
     NSArray *menu_items = @[btn_sound, btn_score, btn_noads];
-    
-    CCLayoutBox *pause_menu           = [[CCLayoutBox alloc] init];
+
+    pause_menu                        = [[CCLayoutBox alloc] init];
     pause_menu.direction              = CCLayoutBoxDirectionHorizontal;
     pause_menu.spacing                = 30.0f;
     pause_menu.position               = ccp(winSize.width/2, 50);
@@ -173,15 +185,24 @@ BOOL jumping = false;
     for(CCNode* item in menu_items)
     {
         item.cascadeColorEnabled = item.cascadeOpacityEnabled = YES;
-        [_playing_menu_items addObject:item];
         [pause_menu addChild:item];
     }
     pause_menu.opacity = 0.0f;
     
-    [pause_menu runAction:[CCActionFadeIn actionWithDuration:1.0f]];
+    [pause_menu runAction:[CCActionFadeIn actionWithDuration:0.3f]];
     
     [self addChild:pause_menu];
+    //[self removeChild:menu_box];
+    [self removeChildByName:@"menu_box"];
     
+}
+
+-(void) return_from_pause:(id)sender
+{
+    [self removeChild:pause_menu];
+    [self setup_menu];
+    [_hero.animationManager setPaused:false];
+    paused = false;
 }
 
 - (void)setup_menu
@@ -190,8 +211,10 @@ BOOL jumping = false;
     
     CCButton *btn_pause = [CCButton buttonWithTitle:@"" spriteFrame:btn_pause_sprite];
     [btn_pause setTarget:self selector:@selector(pause_game:)];
-    
-    CCLayoutBox *menu_box = [[CCLayoutBox alloc] init];
+
+    CCLayoutBox *menu_box;
+    menu_box = [[CCLayoutBox alloc] init];
+    menu_box.name = @"menu_box";
     menu_box.direction = CCLayoutBoxDirectionVertical;
     menu_box.spacing    = 30.0f;
     menu_box.position = ccp(winSize.width - 20, winSize.height - 20);
@@ -241,44 +264,39 @@ BOOL jumping = false;
     weapon.physicsBody.sensor = true;
     [_physicsNode addChild:weapon];
     [_fireballs addObject:weapon];
-    //    _hero.position = ccp(_hero.position.x + 5, _hero.position.y);
 }
 
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    //[_hero.physicsBody applyImpulse:ccp(0, 10500.f)];
-    // [_hero.physicsBody applyAngularImpulse:10000.f];
-    //[_hero.physicsBody applyImpulse:(0, 10000.f) atWorldPoint:(0, 15000)];
-    //_sinceTouch = 0.f;
     NSInteger hero_actual_y = [[NSString stringWithFormat: @"%.2f", _hero.position.y] integerValue];
     if ( (hero_actual_y - hero_y_ini_pos) < 1 && !jumping)
     {
         [self jumpRunner];
     }
-    
-    // [self addSwipeToJumpGesture];
 }
 
 - (void)update:(CCTime)delta
 {
-    _hero.position = ccp(_hero.position.x + delta * scrollSpeed, _hero.position.y);
-    _physicsNode.position = ccp(_physicsNode.position.x - ( scrollSpeed * delta), _physicsNode.position.y);
-    
-    // loop the ground
-    for (CCNode *ground in _grounds)
-    {
-        // get the world position of the ground
-        CGPoint groundWorldPosition = [_physicsNode convertToWorldSpace:ground.position];
-        // get the screen position of the ground
-        CGPoint groundScreenPosition = [self convertToNodeSpace:groundWorldPosition];
-        // if the left corner is one complete width off the screen, move it to the right
-        if (groundScreenPosition.x <= (-1 * ground.contentSize.width))
+    if( !paused ){
+        // loop the ground
+        for (CCNode *ground in _grounds)
         {
-            ground.position = ccp(ground.position.x + 2 * ground.contentSize.width, ground.position.y);
+            // get the world position of the ground
+            CGPoint groundWorldPosition = [_physicsNode convertToWorldSpace:ground.position];
+            // get the screen position of the ground
+            CGPoint groundScreenPosition = [self convertToNodeSpace:groundWorldPosition];
+            // if the left corner is one complete width off the screen, move it to the right
+            if (groundScreenPosition.x <= (-1 * ground.contentSize.width))
+            {
+                ground.position = ccp(ground.position.x + 2 * ground.contentSize.width, ground.position.y);
+            }
+            // clamp velocity
+            float yVelocity = clampf(_hero.physicsBody.velocity.y, 0 * MAXFLOAT, 50.f);
+            _hero.physicsBody.velocity = ccp(-0.5, yVelocity);
         }
-        // clamp velocity
-        float yVelocity = clampf(_hero.physicsBody.velocity.y, 0 * MAXFLOAT, 50.f);
-        _hero.physicsBody.velocity = ccp(-0.5, yVelocity);
+        
+        _hero.position = ccp(_hero.position.x + delta * scrollSpeed, _hero.position.y);
+        _physicsNode.position = ccp(_physicsNode.position.x - ( scrollSpeed * delta), _physicsNode.position.y);
     }
     
     if(playing)
