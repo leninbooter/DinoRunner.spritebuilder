@@ -30,6 +30,9 @@
 
     // Configure CCFileUtils to work with SpriteBuilder
     [CCBReader configureCCFileUtils];
+    
+    // Multitouch
+    [glView setMultipleTouchEnabled:YES]
 
     [director runWithScene:[CCBReader loadAsScene:@"MainScene"]];
 }

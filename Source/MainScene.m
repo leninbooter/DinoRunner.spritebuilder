@@ -10,6 +10,7 @@ static const CGFloat scrollSpeed = 300.f;
 CGFloat firstObstaclePosition;
 static const CGFloat distanceBetweenObstacles = 220.f;
 BOOL playing = false;
+BOOL paused = false;
 CGSize winSize;
 NSInteger obstaclesMaxQt;
 NSString *obstacles_cbs[2]  = {@"Obstacle", @"obstacle_triangle"};
@@ -22,6 +23,7 @@ BOOL jumping = false;
     CCNode *_ground1;
     CCNode *_ground2;
     CCNode *_startButton;
+    CCNode *weapon;
     
     //CCNode *_goal;
     NSArray *_grounds;
@@ -29,6 +31,7 @@ BOOL jumping = false;
     //UISwipeGestureRecognizer *swipeUp;
     NSMutableArray *_obstacles;
     NSMutableArray *_fireballs;
+    NSMutableArray *_playing_menu_items;
     NSInteger hero_y_ini_pos;
     NSInteger points;
     CCLabelTTF *score_label;
@@ -108,6 +111,8 @@ BOOL jumping = false;
 
     [self setup_menu];
     
+    weapon = (CCNode *) [CCBReader load:weapons_cbs[0]];
+    
     playing = true;
     //CCScene *MainScene = [CCBReader loadAsScene:@"MainScene"];
     //[[CCDirector sharedDirector] replaceScene:MainScene];
@@ -137,42 +142,64 @@ BOOL jumping = false;
     [_hero runAction:seq];
 }
 
-- (void)setup_menu
+- (void)pause_game:(id)sender
 {
-    CCSpriteFrame * btn_sound_background = [CCSpriteFrame frameWithImageNamed:@"button_sound_small.png"];
+    CCSpriteFrame * btn_sound_background = [CCSpriteFrame frameWithImageNamed:@"btn_no_sound.png"];
     CCButton *btn_sound = [CCButton buttonWithTitle:@"" spriteFrame:btn_sound_background];
     
-    CCSpriteFrame * btn_score_background = [CCSpriteFrame frameWithImageNamed:@"button_score_small.png"];
+    CCSpriteFrame * btn_score_background = [CCSpriteFrame frameWithImageNamed:@"btn_score.png"];
     CCButton *btn_score = [CCButton buttonWithTitle:@"" spriteFrame:btn_score_background];
     
-    CCSpriteFrame * btn_noads_background = [CCSpriteFrame frameWithImageNamed:@"button_noads_small.png"];
+    CCSpriteFrame * btn_noads_background = [CCSpriteFrame frameWithImageNamed:@"btn_no_ads.png"];
     CCButton *btn_noads = [CCButton buttonWithTitle:@"" spriteFrame:btn_noads_background];
     
-    CCSpriteFrame * btn_launcher_fb_background = [CCSpriteFrame frameWithImageNamed:@"button_launch_fb_small.png"];
-    CCButton *btn_launch = [CCButton buttonWithTitle:@"" spriteFrame:btn_launcher_fb_background];
-    [btn_launch setTarget:self selector:@selector(launch_fb_Button_Tapped:)];
+    /*CCSpriteFrame * btn_launcher_fb_background = [CCSpriteFrame frameWithImageNamed:@"button_launch_fb_small.png"];
+     CCButton *btn_launch = [CCButton buttonWithTitle:@"" spriteFrame:btn_launcher_fb_background];
+     [btn_launch setTarget:self selector:@selector(launch_fb_Button_Tapped:)];
+     btn_launch.exclusiveTouch = NO;
+     btn_launch.claimsUserInteraction = NO;*/
     
     
-    NSArray *menu_items = @[btn_sound, btn_score, btn_noads, btn_launch];
+    NSArray *menu_items = @[btn_sound, btn_score, btn_noads];
     
-    CCLayoutBox *menu_box = [[CCLayoutBox alloc] init];
-    menu_box.direction = CCLayoutBoxDirectionHorizontal;
-    menu_box.spacing = 30.0f;
-    menu_box.position = ccp(winSize.width/2, 50);
-    menu_box.anchorPoint = ccp(0.5, 0.0);
-    menu_box.cascadeColorEnabled = YES;
-    menu_box.cascadeOpacityEnabled = YES;
+    CCLayoutBox *pause_menu           = [[CCLayoutBox alloc] init];
+    pause_menu.direction              = CCLayoutBoxDirectionHorizontal;
+    pause_menu.spacing                = 30.0f;
+    pause_menu.position               = ccp(winSize.width/2, 50);
+    pause_menu.anchorPoint            = ccp(0.5, 0.0);
+    pause_menu.cascadeColorEnabled    = YES;
+    pause_menu.cascadeOpacityEnabled  = YES;
     
     for(CCNode* item in menu_items)
     {
         item.cascadeColorEnabled = item.cascadeOpacityEnabled = YES;
-        [menu_box addChild:item];
+        [_playing_menu_items addObject:item];
+        [pause_menu addChild:item];
     }
-    menu_box.opacity = 0.0f;
+    pause_menu.opacity = 0.0f;
     
-    [menu_box runAction:[CCActionFadeIn actionWithDuration:1.0f]];
+    [pause_menu runAction:[CCActionFadeIn actionWithDuration:1.0f]];
     
+    [self addChild:pause_menu];
+    
+}
+
+- (void)setup_menu
+{
+    CCSpriteFrame * btn_pause_sprite = [CCSpriteFrame frameWithImageNamed:@"btn_no_sound.png"];
+    
+    CCButton *btn_pause = [CCButton buttonWithTitle:@"" spriteFrame:btn_pause_sprite];
+    [btn_pause setTarget:self selector:@selector(pause_game:)];
+    
+    CCLayoutBox *menu_box = [[CCLayoutBox alloc] init];
+    menu_box.direction = CCLayoutBoxDirectionVertical;
+    menu_box.spacing    = 30.0f;
+    menu_box.position = ccp(winSize.width - 20, winSize.height - 20);
+    menu_box.anchorPoint = ccp(1,1);
+    
+    [menu_box addChild:btn_pause];
     [self addChild:menu_box];
+    
 }
 
 - (void)spawnNewObstacle
@@ -209,7 +236,6 @@ BOOL jumping = false;
 
 -(void)spawnNewFireball
 {
-    CCNode *weapon = (CCNode *) [CCBReader load:weapons_cbs[0]];
     weapon.position = ccp(_hero.position.x + 50, _hero.position.y);
     weapon.scale = 0.3;
     weapon.physicsBody.sensor = true;
@@ -235,9 +261,9 @@ BOOL jumping = false;
 
 - (void)update:(CCTime)delta
 {
-    
     _hero.position = ccp(_hero.position.x + delta * scrollSpeed, _hero.position.y);
     _physicsNode.position = ccp(_physicsNode.position.x - ( scrollSpeed * delta), _physicsNode.position.y);
+    
     // loop the ground
     for (CCNode *ground in _grounds)
     {
@@ -296,7 +322,7 @@ BOOL jumping = false;
             
             if ( (fireballScreenPosition.x - (fireball.contentSize.width * 0.3)) > winSize.width )
             {
-                //Add off screen fb to the delay delete
+                //Add off screen fb to the delayed delete
                 if(!offScreenFireballs)
                 {
                     offScreenFireballs = [NSMutableArray array];

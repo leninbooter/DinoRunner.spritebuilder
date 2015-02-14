@@ -100,13 +100,7 @@
 		B77F1B4017B978D7009739AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3F17B978D7009739AE /* CoreGraphics.framework */; };
 		B77F1B4217B978D7009739AE /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B4117B978D7009739AE /* CoreText.framework */; };
 		B78A0B10198AF87200C63841 /* Published-Android in Resources */ = {isa = PBXBuildFile; fileRef = B78A0B0F198AF87200C63841 /* Published-Android */; };
-		DCD6CBE61A863CE900A8FED4 /* button_noads.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD6CBE31A863CE900A8FED4 /* button_noads.png */; };
-		DCD6CBE71A863CE900A8FED4 /* button_score.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD6CBE41A863CE900A8FED4 /* button_score.png */; };
-		DCD6CBE81A863CE900A8FED4 /* button_sound.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD6CBE51A863CE900A8FED4 /* button_sound.png */; };
-		DCD6CBEB1A87D0CE00A8FED4 /* button_sound_small.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD6CBEA1A87D0CE00A8FED4 /* button_sound_small.png */; };
-		DCD6CBED1A87DAAB00A8FED4 /* button_noads_small.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD6CBEC1A87DAAB00A8FED4 /* button_noads_small.png */; };
-		DCD6CBEF1A87DAB600A8FED4 /* button_score_small.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD6CBEE1A87DAB600A8FED4 /* button_score_small.png */; };
-		DCD6CBF11A87EB3500A8FED4 /* button_launch_fb_small.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD6CBF01A87EB3500A8FED4 /* button_launch_fb_small.png */; };
+		DCCB688D1A8F7BFC003C4F93 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCCB688C1A8F7BFC003C4F93 /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -254,13 +248,7 @@
 		B78A0B0F198AF87200C63841 /* Published-Android */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Published-Android"; sourceTree = "<group>"; };
 		B7B3713D180358F1007369CC /* libObjectiveChipmunk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveChipmunk.a; path = "../libs/cocos2d-iphone/external/Chipmunk/xcode/build/Debug-iphoneos/libObjectiveChipmunk.a"; sourceTree = "<group>"; };
 		D352B48019EC608A00829775 /* MetalShaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MetalShaders; path = Source/MetalShaders; sourceTree = "<group>"; };
-		DCD6CBE31A863CE900A8FED4 /* button_noads.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_noads.png; sourceTree = "<group>"; };
-		DCD6CBE41A863CE900A8FED4 /* button_score.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_score.png; sourceTree = "<group>"; };
-		DCD6CBE51A863CE900A8FED4 /* button_sound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_sound.png; sourceTree = "<group>"; };
-		DCD6CBEA1A87D0CE00A8FED4 /* button_sound_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_sound_small.png; sourceTree = "<group>"; };
-		DCD6CBEC1A87DAAB00A8FED4 /* button_noads_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_noads_small.png; sourceTree = "<group>"; };
-		DCD6CBEE1A87DAB600A8FED4 /* button_score_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_score_small.png; sourceTree = "<group>"; };
-		DCD6CBF01A87EB3500A8FED4 /* button_launch_fb_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_launch_fb_small.png; sourceTree = "<group>"; };
+		DCCB688C1A8F7BFC003C4F93 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -347,13 +335,6 @@
 		5B121010197483EE004C1E1D /* drawable-mdpi */ = {
 			isa = PBXGroup;
 			children = (
-				DCD6CBF01A87EB3500A8FED4 /* button_launch_fb_small.png */,
-				DCD6CBEE1A87DAB600A8FED4 /* button_score_small.png */,
-				DCD6CBEC1A87DAAB00A8FED4 /* button_noads_small.png */,
-				DCD6CBEA1A87D0CE00A8FED4 /* button_sound_small.png */,
-				DCD6CBE31A863CE900A8FED4 /* button_noads.png */,
-				DCD6CBE41A863CE900A8FED4 /* button_score.png */,
-				DCD6CBE51A863CE900A8FED4 /* button_sound.png */,
 				5B121011197483EE004C1E1D /* ic_launcher.png */,
 			);
 			path = "drawable-mdpi";
@@ -390,6 +371,7 @@
 			children = (
 				B737893D1807617C0076A88C /* AppDelegate.h */,
 				B737893E1807617C0076A88C /* AppDelegate.m */,
+				DCCB688C1A8F7BFC003C4F93 /* Media.xcassets */,
 				87C08CF31A3CBEEE00AE1C98 /* Obstacle.h */,
 				87C08CF01A3CBD0700AE1C98 /* Obstacle.m */,
 				87CA2B2F1A509234007D313B /* Goal.m */,
@@ -816,7 +798,7 @@
 			files = (
 				B71F5919188484E7003F4D28 /* Settings.png in Resources */,
 				B7378978180762440076A88C /* Default@2x.png in Resources */,
-				DCD6CBF11A87EB3500A8FED4 /* button_launch_fb_small.png in Resources */,
+				DCCB688D1A8F7BFC003C4F93 /* Media.xcassets in Resources */,
 				87AC2D8D1A6BDC00007A4E0A /* Icon-Small@2x.png in Resources */,
 				B71F5914188484E7003F4D28 /* iPad@2x.png in Resources */,
 				B71F5913188484E7003F4D28 /* iPad.png in Resources */,
@@ -824,19 +806,13 @@
 				B71F5916188484E7003F4D28 /* iPhone-old@2x.png in Resources */,
 				B737893B180761570076A88C /* Published-iOS in Resources */,
 				B71F591A188484E7003F4D28 /* Settings@2x.png in Resources */,
-				DCD6CBE61A863CE900A8FED4 /* button_noads.png in Resources */,
 				87AC2D901A6BDC00007A4E0A /* Icon-Small-40@2x.png in Resources */,
 				87AC2D8E1A6BDC00007A4E0A /* Icon-Small.png in Resources */,
-				DCD6CBE71A863CE900A8FED4 /* button_score.png in Resources */,
-				DCD6CBED1A87DAAB00A8FED4 /* button_noads_small.png in Resources */,
-				DCD6CBE81A863CE900A8FED4 /* button_sound.png in Resources */,
-				DCD6CBEF1A87DAB600A8FED4 /* button_score_small.png in Resources */,
 				B7378976180762440076A88C /* Default-Landscape~ipad.png in Resources */,
 				87AC2D941A6BDC09007A4E0A /* Icon-60.png in Resources */,
 				87AC2D8F1A6BDC00007A4E0A /* Icon-Small-40.png in Resources */,
 				B71F5915188484E7003F4D28 /* iPhone-old.png in Resources */,
 				87AC2D931A6BDC09007A4E0A /* Icon-60@2x.png in Resources */,
-				DCD6CBEB1A87D0CE00A8FED4 /* button_sound_small.png in Resources */,
 				B71F5917188484E7003F4D28 /* iPhone.png in Resources */,
 				B7378975180762440076A88C /* Default-568h@2x.png in Resources */,
 				B71F5918188484E7003F4D28 /* iPhone@2x.png in Resources */,
