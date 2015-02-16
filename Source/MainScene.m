@@ -78,6 +78,22 @@ BOOL jumping = false;
     [score_label setOpacity:0.0];
 }
 
+-(void)fadeBackground
+{
+    CCNodeColor *fadeLayer = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0 green:0 blue:0]];
+    [self addChild:fadeLayer z:7];
+    fadeLayer.opacity = 0;
+    
+    id fade   = [CCActionFadeTo actionWithDuration:1.0f opacity:160];//200 for light blur
+    id calBlk = [CCActionCallBlock actionWithBlock:^{
+        //show pause screen buttons here
+        //[self showPauseMenu];
+    }];
+    id sequen = [CCActionSequence actions:fade, calBlk, nil];
+    
+    [fadeLayer runAction:sequen];
+}
+
 - (void)fadeText:(CCLabelTTF *)progress duration:(NSTimeInterval)duration
            curve:(int)curve x:(CGFloat)x y:(CGFloat)y alpha:(float)alpha
 {
@@ -154,6 +170,9 @@ BOOL jumping = false;
     pause_bg.position = ccp(winSize.width/2, winSize.height/2);
     pause_bg.anchorPoint = ccp(0.5f, 0.5f);
     pause_bg.name = @"pause_bg";
+    CCSpriteFrame *normalMap = [CCSpriteFrame frameWithImageNamed:@"normal_map.png"];
+    CCEffectGlass *glassEffect = [CCEffectGlass effectWithShininess:0.1f refraction:0.1f refractionEnvironment:_hero reflectionEnvironment:_hero normalMap:normalMap];
+    pause_bg.effect = glassEffect;
     
     CCSprite *pause_title = [CCSprite spriteWithImageNamed:@"pause_title.png"];
     pause_title.position = ccp(winSize.width/2, winSize.height/2 + 100);
@@ -220,7 +239,8 @@ BOOL jumping = false;
     [menu_pause_container addChild:down_items];
     [menu_pause_container addChild:up_items];
     
-    [self addChild:pause_bg z:0];
+    //[self addChild:pause_bg z:0];
+    [self fadeBackground];
     [self addChild:pause_title z:1];
     [self addChild:menu_pause_container z:2];
     

@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "translucide_bg640x960@2x.png"
+      "filename" : "normalmap.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "translucide_bg640x960@2x-1.png"
+      "filename" : "normalmap-1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "translucide_bg.png"
+      "filename" : "normalmap-2.png"
     }
   ],
   "info" : {
