@@ -8,11 +8,12 @@
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "btn_score-1.png"
+      "filename" : "Score_Button66x66.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "Score_Button66x66-1.png"
     }
   ],
   "info" : {
