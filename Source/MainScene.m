@@ -78,21 +78,21 @@ BOOL jumping = false;
     [score_label setOpacity:0.0];
 }
 
--(void)fadeBackground
-{
-    CCNodeColor *fadeLayer = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0 green:0 blue:0]];
-    [self addChild:fadeLayer z:7];
-    fadeLayer.opacity = 0;
-    
-    id fade   = [CCActionFadeTo actionWithDuration:1.0f opacity:160];//200 for light blur
-    id calBlk = [CCActionCallBlock actionWithBlock:^{
-        //show pause screen buttons here
-        //[self showPauseMenu];
-    }];
-    id sequen = [CCActionSequence actions:fade, calBlk, nil];
-    
-    [fadeLayer runAction:sequen];
-}
+//-(void)fadeBackground
+//{
+//    CCNodeColor *fadeLayer = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0 green:0 blue:0]];
+//    [self addChild:fadeLayer z:7];
+//    fadeLayer.opacity = 0;
+//    
+//    id fade   = [CCActionFadeTo actionWithDuration:1.0f opacity:160];//200 for light blur
+//    id calBlk = [CCActionCallBlock actionWithBlock:^{
+//        //show pause screen buttons here
+//        //[self showPauseMenu];
+//    }];
+//    id sequen = [CCActionSequence actions:fade, calBlk, nil];
+//    
+//    [fadeLayer runAction:sequen];
+//}
 
 - (void)fadeText:(CCLabelTTF *)progress duration:(NSTimeInterval)duration
            curve:(int)curve x:(CGFloat)x y:(CGFloat)y alpha:(float)alpha
@@ -240,7 +240,7 @@ BOOL jumping = false;
     [menu_pause_container addChild:up_items];
     
     //[self addChild:pause_bg z:0];
-    [self fadeBackground];
+//    [self fadeBackground];
     [self addChild:pause_title z:1];
     [self addChild:menu_pause_container z:2];
     
