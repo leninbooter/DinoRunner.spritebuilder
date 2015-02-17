@@ -156,6 +156,8 @@ BOOL jumping = false;
 //    [_hero runAction:jump];
 //}
 
+
+
 - (void)pause_game:(id)sender
 {
     paused = true;
@@ -166,7 +168,7 @@ BOOL jumping = false;
     [_background.animationManager setPaused:true];
     [self setUserInteractionEnabled:false];
     
-    CCSprite *pause_bg = [CCSprite spriteWithImageNamed:@"pause_bg.png"];
+    CCSprite *pause_bg = [CCSprite spriteWithImageNamed:@"pause_bg1.png"];
     pause_bg.position = ccp(winSize.width/2, winSize.height/2);
     pause_bg.anchorPoint = ccp(0.5f, 0.5f);
     pause_bg.name = @"pause_bg";
@@ -179,6 +181,7 @@ BOOL jumping = false;
     pause_title.anchorPoint = ccp(0.5f, 0.5f);
     pause_title.name = @"pause_title";
     
+    
     CCSpriteFrame * btn_resume_background = [CCSpriteFrame frameWithImageNamed:@"btn_resume.png"];
     CCButton *btn_resume = [CCButton buttonWithTitle:@"" spriteFrame:btn_resume_background];
     [btn_resume setTarget:self selector:@selector(resume:)];
@@ -188,6 +191,9 @@ BOOL jumping = false;
     
     CCSpriteFrame * btn_score_background = [CCSpriteFrame frameWithImageNamed:@"btn_score.png"];
     CCButton *btn_score = [CCButton buttonWithTitle:@"" spriteFrame:btn_score_background];
+    
+    
+    
     
     CCSpriteFrame * btn_noads_background = [CCSpriteFrame frameWithImageNamed:@"btn_no_ads.png"];
     CCButton *btn_noads = [CCButton buttonWithTitle:@"" spriteFrame:btn_noads_background];
@@ -200,7 +206,7 @@ BOOL jumping = false;
     
     CCLayoutBox *menu_pause_container   = [[CCLayoutBox alloc] init];
     menu_pause_container.direction      = CCLayoutBoxDirectionVertical;
-    menu_pause_container.spacing        = 20.f;
+    menu_pause_container.spacing        = 3.f;
     menu_pause_container.position               = ccp(winSize.width/2, 50);
     menu_pause_container.anchorPoint            = ccp(0.5, 0.0);
     menu_pause_container.cascadeColorEnabled    = YES;
@@ -209,7 +215,7 @@ BOOL jumping = false;
     
     CCLayoutBox *up_items   = [[CCLayoutBox alloc] init];
     up_items.direction      = CCLayoutBoxDirectionHorizontal;
-    up_items.spacing        = 20.f;
+    up_items.spacing        =  10.f;
     
     CCLayoutBox *down_items   = [[CCLayoutBox alloc] init];
     down_items.direction      = CCLayoutBoxDirectionHorizontal;
