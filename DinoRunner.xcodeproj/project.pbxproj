@@ -373,7 +373,6 @@
 			children = (
 				B737893D1807617C0076A88C /* AppDelegate.h */,
 				B737893E1807617C0076A88C /* AppDelegate.m */,
-				DCCB688C1A8F7BFC003C4F93 /* Media.xcassets */,
 				87C08CF31A3CBEEE00AE1C98 /* Obstacle.h */,
 				87C08CF01A3CBD0700AE1C98 /* Obstacle.m */,
 				87CA2B2F1A509234007D313B /* Goal.m */,
@@ -522,7 +521,11 @@
 		B77F1B2517B978D7009739AE = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< Updated upstream
 				8771346C1A92601A0022FF50 /* Score_Button66x66.png */,
+=======
+				DCCB688C1A8F7BFC003C4F93 /* Media.xcassets */,
+>>>>>>> Stashed changes
 				B737893C1807616C0076A88C /* Source */,
 				B77F1B4617B978D7009739AE /* Resources */,
 				9222E2B918734FF800A246C7 /* libs */,

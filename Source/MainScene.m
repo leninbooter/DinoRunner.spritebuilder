@@ -189,12 +189,20 @@ BOOL jumping = false;
     CCSpriteFrame * btn_sound_background = [CCSpriteFrame frameWithImageNamed:@"btn_no_sound.png"];
     CCButton *btn_sound = [CCButton buttonWithTitle:@"" spriteFrame:btn_sound_background];
     
-    CCSpriteFrame * btn_score_background = [CCSpriteFrame frameWithImageNamed:@"btn_score.png"];
+    UIImage *uimage = [UIImage imageNamed:@"btn_score"];
+    CCTexture *texture = [[CCTexture alloc] initWithCGImage:uimage.CGImage contentScale:uimage.scale]; // release if not arc
+    CCSpriteFrame *btn_score_background =
+    [CCSpriteFrame frameWithTexture:texture rectInPixels:CGRectMake(66, 66, 66, 66) rotated:NO offset:CGPointZero originalSize:CGSizeMake(180, 180)];
+//    CCSpriteFrame * btn_score_background = [CCSpriteFrame frameWithImageNamed:@"btn_score"];
     CCButton *btn_score = [CCButton buttonWithTitle:@"" spriteFrame:btn_score_background];
+<<<<<<< Updated upstream
     
     
     
     
+=======
+
+>>>>>>> Stashed changes
     CCSpriteFrame * btn_noads_background = [CCSpriteFrame frameWithImageNamed:@"btn_no_ads.png"];
     CCButton *btn_noads = [CCButton buttonWithTitle:@"" spriteFrame:btn_noads_background];
     
@@ -241,12 +249,18 @@ BOOL jumping = false;
     [pause_menu runAction:[CCActionFadeIn actionWithDuration:0.3f]];
     
     [up_items addChild:btn_resume];
-    
+
+        [menu_pause_container addChild:up_items];
     [menu_pause_container addChild:down_items];
-    [menu_pause_container addChild:up_items];
+
     
+<<<<<<< Updated upstream
     //[self addChild:pause_bg z:0];
 //    [self fadeBackground];
+=======
+    [self addChild:pause_bg z:0];
+    //[self fadeBackground];
+>>>>>>> Stashed changes
     [self addChild:pause_title z:1];
     [self addChild:menu_pause_container z:2];
     
