@@ -26,6 +26,8 @@ BOOL jumping = false;
     CCNode *_background;
     CCNode *_startButton;
     
+    CCNode *screen_pause;
+    
     CCNode *weapon;
 
     // Menus
@@ -42,6 +44,7 @@ BOOL jumping = false;
     NSInteger hero_y_ini_pos;
     NSInteger points;
     CCLabelTTF *score_label;
+    
 }
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero level:(CCNode *)level
 {
@@ -113,7 +116,7 @@ BOOL jumping = false;
 -(void)jumpRunner
 {
     [_hero.animationManager runAnimationsForSequenceNamed:@"jumping"];
-    id Jump_Up = [CCActionJumpBy actionWithDuration:0.2f position:ccp(0,120) height:20 jumps:1];
+    id Jump_Up = [CCActionJumpBy actionWithDuration:1.2f position:ccp(0,120) height:20 jumps:1];
     id jumping = [CCActionJumpBy actionWithDuration:0.3f position:ccp(0,-120) height:20 jumps:1];
     id seq = [CCActionSequence actions:Jump_Up, jumping, nil];
     [_hero runAction:seq];
@@ -135,12 +138,15 @@ BOOL jumping = false;
     firstObstaclePosition = (_hero.position.x - _hero.contentSize.width) + winSize.width;
     obstaclesMaxQt = ( winSize.width / (int) distanceBetweenObstacles ) * 2;
     weapon = (CCNode *) [CCBReader load:weapons_cbs[0]];
+    screen_pause = (CCNode *) [CCBReader load:@"Pause"];
     
     [self spawnNewObstacle];
     [self spawnNewObstacle];
     [self addChild:score_label];
     [self setup_menu];
     [self removeChild:_startButton];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resume:) name:@"resume_game_from_pause" object:nil];
     
     playing = true;
 }
@@ -157,8 +163,7 @@ BOOL jumping = false;
 //}
 
 
-
-- (void)pause_game:(id)sender
+- (void) pause_game:(id)sender
 {
     paused = true;
     
@@ -168,119 +173,32 @@ BOOL jumping = false;
     [_background.animationManager setPaused:true];
     [self setUserInteractionEnabled:false];
     
-    CCSprite *pause_bg = [CCSprite spriteWithImageNamed:@"pause_bg1.png"];
-    pause_bg.position = ccp(winSize.width/2, winSize.height/2);
-    pause_bg.anchorPoint = ccp(0.5f, 0.5f);
-    pause_bg.name = @"pause_bg";
-    CCSpriteFrame *normalMap = [CCSpriteFrame frameWithImageNamed:@"normal_map.png"];
-    CCEffectGlass *glassEffect = [CCEffectGlass effectWithShininess:0.1f refraction:0.1f refractionEnvironment:_hero reflectionEnvironment:_hero normalMap:normalMap];
-    pause_bg.effect = glassEffect;
-    
-    CCSprite *pause_title = [CCSprite spriteWithImageNamed:@"pause_title.png"];
-    pause_title.position = ccp(winSize.width/2, winSize.height/2 + 100);
-    pause_title.anchorPoint = ccp(0.5f, 0.5f);
-    pause_title.name = @"pause_title";
-    
-    
-    CCSpriteFrame * btn_resume_background = [CCSpriteFrame frameWithImageNamed:@"btn_resume.png"];
-    CCButton *btn_resume = [CCButton buttonWithTitle:@"" spriteFrame:btn_resume_background];
-    [btn_resume setTarget:self selector:@selector(resume:)];
-    
-    CCSpriteFrame * btn_sound_background = [CCSpriteFrame frameWithImageNamed:@"btn_no_sound.png"];
-    CCButton *btn_sound = [CCButton buttonWithTitle:@"" spriteFrame:btn_sound_background];
-    
-    UIImage *uimage = [UIImage imageNamed:@"btn_score"];
-    CCTexture *texture = [[CCTexture alloc] initWithCGImage:uimage.CGImage contentScale:uimage.scale]; // release if not arc
-    CCSpriteFrame *btn_score_background =
-    [CCSpriteFrame frameWithTexture:texture rectInPixels:CGRectMake(66, 66, 66, 66) rotated:NO offset:CGPointZero originalSize:CGSizeMake(180, 180)];
-//    CCSpriteFrame * btn_score_background = [CCSpriteFrame frameWithImageNamed:@"btn_score"];
-    CCButton *btn_score = [CCButton buttonWithTitle:@"" spriteFrame:btn_score_background];
-<<<<<<< Updated upstream
-    
-    
-    
-    
-=======
-
->>>>>>> Stashed changes
-    CCSpriteFrame * btn_noads_background = [CCSpriteFrame frameWithImageNamed:@"btn_no_ads.png"];
-    CCButton *btn_noads = [CCButton buttonWithTitle:@"" spriteFrame:btn_noads_background];
-    
-    /*CCSpriteFrame * btn_launcher_fb_background = [CCSpriteFrame frameWithImageNamed:@"button_launch_fb_small.png"];
-     CCButton *btn_launch = [CCButton buttonWithTitle:@"" spriteFrame:btn_launcher_fb_background];
-     [btn_launch setTarget:self selector:@selector(launch_fb_Button_Tapped:)];
-     btn_launch.exclusiveTouch = NO;
-     btn_launch.claimsUserInteraction = NO;*/
-    
-    CCLayoutBox *menu_pause_container   = [[CCLayoutBox alloc] init];
-    menu_pause_container.direction      = CCLayoutBoxDirectionVertical;
-    menu_pause_container.spacing        = 3.f;
-    menu_pause_container.position               = ccp(winSize.width/2, 50);
-    menu_pause_container.anchorPoint            = ccp(0.5, 0.0);
-    menu_pause_container.cascadeColorEnabled    = YES;
-    menu_pause_container.cascadeOpacityEnabled  = YES;
-    menu_pause_container.name = @"pause_menu";
-    
-    CCLayoutBox *up_items   = [[CCLayoutBox alloc] init];
-    up_items.direction      = CCLayoutBoxDirectionHorizontal;
-    up_items.spacing        =  10.f;
-    
-    CCLayoutBox *down_items   = [[CCLayoutBox alloc] init];
-    down_items.direction      = CCLayoutBoxDirectionHorizontal;
-    down_items.spacing        = 20.f;
-
-    NSArray *menu_items = @[btn_sound, btn_score, btn_noads];
-
-    /*pause_menu                        = [[CCLayoutBox alloc] init];
-    pause_menu.direction              = CCLayoutBoxDirectionHorizontal;
-    pause_menu.spacing                = 30.0f;
-    pause_menu.position               = ccp(winSize.width/2, 50);
-    pause_menu.anchorPoint            = ccp(0.5, 0.0);
-    pause_menu.cascadeColorEnabled    = YES;
-    pause_menu.cascadeOpacityEnabled  = YES;*/
-    
-    
-    for(CCNode* item in menu_items)
-    {
-        item.cascadeColorEnabled = item.cascadeOpacityEnabled = YES;
-        [down_items addChild:item];
-    }
-    pause_menu.opacity = 0.0f;
-    [pause_menu runAction:[CCActionFadeIn actionWithDuration:0.3f]];
-    
-    [up_items addChild:btn_resume];
-
-        [menu_pause_container addChild:up_items];
-    [menu_pause_container addChild:down_items];
-
-    
-<<<<<<< Updated upstream
-    //[self addChild:pause_bg z:0];
-//    [self fadeBackground];
-=======
-    [self addChild:pause_bg z:0];
-    //[self fadeBackground];
->>>>>>> Stashed changes
-    [self addChild:pause_title z:1];
-    [self addChild:menu_pause_container z:2];
+    screen_pause.anchorPoint = ccp(0.5f, 0.5f);
+    screen_pause.position = ccp(winSize.width/2, winSize.height/2);
+    screen_pause.name = @"pause_menu";
+    [self addChild:screen_pause];
     
     [self removeChildByName:@"menu_box"];
-    
 }
 
--(void) resume:(id)sender
+-(void)resume:(NSNotification *)notification
 {
-    [self removeChildByName:@"pause_title"];
     [self removeChildByName:@"pause_menu"];
-    [self removeChildByName:@"pause_bg"];
     [self setup_menu];
     [self setUserInteractionEnabled:true];
-    
     
     _hero.physicsBody.affectedByGravity = true;
     [_hero.animationManager setPaused:false];
     _hero.physicsBody.affectedByGravity = true;
     [_background.animationManager setPaused:false];
+    
+    NSInteger hero_actual_y = [[NSString stringWithFormat: @"%.2f", _hero.position.y] integerValue];
+    if((hero_actual_y - hero_y_ini_pos) > 1)
+    {
+        id jumping = [CCActionJumpBy actionWithDuration:0.25f position:ccp(0,(_hero.position.y - hero_y_ini_pos)*-1) height:20 jumps:1];
+        id seq = [CCActionSequence actions:jumping, nil];
+        [_hero runAction:seq];
+    }
     
     paused = false;
 }

@@ -154,6 +154,8 @@
 						<array/>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -187,8 +189,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>76.00006103515625</real>
-							<real>237.99998474121094</real>
+							<real>98.493499755859375</real>
+							<real>257</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -514,7 +516,7 @@
 						<key>value</key>
 						<array>
 							<real>154.14666748046875</real>
-							<real>377.00003051757812</real>
+							<real>352.00003051757812</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -551,7 +553,7 @@
 						<string>Block</string>
 						<key>value</key>
 						<array>
-							<string>resume</string>
+							<string>ask_resume_game</string>
 							<integer>1</integer>
 						</array>
 					</dict>
@@ -839,8 +841,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>212.19477844238281</real>
-							<real>209.33134460449219</real>
+							<real>178.267822265625</real>
+							<real>228.33135986328125</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -1243,7 +1245,7 @@
 			</dict>
 		</array>
 		<key>customClass</key>
-		<string></string>
+		<string>PauseLayer</string>
 		<key>displayName</key>
 		<string>CCNode</string>
 		<key>memberVarAssignmentName</key>
