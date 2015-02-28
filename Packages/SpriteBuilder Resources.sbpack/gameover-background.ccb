@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>9</integer>
+	<integer>13</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -41,7 +41,7 @@
 		<array>
 			<dict>
 				<key>UUID</key>
-				<integer>4</integer>
+				<integer>1</integer>
 				<key>baseClass</key>
 				<string>CCSprite</string>
 				<key>children</key>
@@ -71,8 +71,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>12.117009162902832</real>
-							<real>185.00003051757812</real>
+							<real>159</real>
+							<real>257</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -85,8 +85,8 @@
 						<string>Point</string>
 						<key>value</key>
 						<array>
-							<real>0.0</real>
-							<real>0.0</real>
+							<real>0.5</real>
+							<real>0.5</real>
 						</array>
 					</dict>
 					<dict>
@@ -96,8 +96,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.85047698020935059</real>
-							<real>0.70583480596542358</real>
+							<real>0.90767651796340942</real>
+							<real>1.2341235876083374</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -126,23 +126,15 @@
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>opacity</string>
-						<key>type</key>
-						<string>Float</string>
-						<key>value</key>
-						<real>0.69999998807907104</real>
-					</dict>
-					<dict>
-						<key>name</key>
 						<string>color</string>
 						<key>type</key>
 						<string>Color3</string>
 						<key>value</key>
 						<array>
-							<real>0.98832780122756958</real>
-							<real>0.11192655563354492</real>
 							<real>1</real>
-							<real>0.69999998807907104</real>
+							<real>1</real>
+							<real>1</real>
+							<real>1</real>
 						</array>
 					</dict>
 					<dict>
@@ -157,7 +149,7 @@
 			</dict>
 			<dict>
 				<key>UUID</key>
-				<integer>1</integer>
+				<integer>4</integer>
 				<key>baseClass</key>
 				<string>CCButton</string>
 				<key>children</key>
@@ -165,7 +157,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>score</string>
+				<string>CCButton</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -187,8 +179,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>98.493499755859375</real>
-							<real>257</real>
+							<real>57.767009735107422</real>
+							<real>104.66667938232422</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -212,8 +204,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.64177680015563965</real>
-							<real>0.64177680015563965</real>
+							<real>0.56114423274993896</real>
+							<real>0.57499998807907104</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -225,7 +217,7 @@
 						<string>Block</string>
 						<key>value</key>
 						<array>
-							<string>score</string>
+							<string></string>
 							<integer>1</integer>
 						</array>
 					</dict>
@@ -236,8 +228,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>96</real>
-							<real>96</real>
+							<real>124</real>
+							<real>92</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -282,7 +274,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Score_Button66x66.png</string>
+							<string>gameover background/share-button.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -293,7 +285,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonHighlighted.png</string>
+							<string>gameover background/share-button.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -491,7 +483,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>resume</string>
+				<string>CCButton</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -513,8 +505,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>154.14666748046875</real>
-							<real>352.00003051757812</real>
+							<real>159</real>
+							<real>104.66667938232422</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -538,8 +530,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.72048699855804443</real>
-							<real>0.66932100057601929</real>
+							<real>0.57474738359451294</real>
+							<real>0.57474738359451294</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -551,7 +543,7 @@
 						<string>Block</string>
 						<key>value</key>
 						<array>
-							<string>ask_resume_game</string>
+							<string></string>
 							<integer>1</integer>
 						</array>
 					</dict>
@@ -562,8 +554,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>240</real>
-							<real>90</real>
+							<real>171</real>
+							<real>87</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -608,7 +600,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>paused buttons/resume button.png</string>
+							<string>gameover background/replay-button.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -619,7 +611,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>paused buttons/resume button.png</string>
+							<string>gameover background/replay-button.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -817,7 +809,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>sound</string>
+				<string>CCButton</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -839,8 +831,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>178.267822265625</real>
-							<real>228.33135986328125</real>
+							<real>259.78280639648438</real>
+							<real>104.66667938232422</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -853,8 +845,8 @@
 						<string>Point</string>
 						<key>value</key>
 						<array>
-							<real>0.0</real>
-							<real>0.0</real>
+							<real>0.5</real>
+							<real>0.5</real>
 						</array>
 					</dict>
 					<dict>
@@ -864,8 +856,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.6370808482170105</real>
-							<real>0.6370808482170105</real>
+							<real>0.5771557092666626</real>
+							<real>0.57499998807907104</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -877,7 +869,7 @@
 						<string>Block</string>
 						<key>value</key>
 						<array>
-							<string>sound</string>
+							<string></string>
 							<integer>1</integer>
 						</array>
 					</dict>
@@ -888,8 +880,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>90</real>
-							<real>90</real>
+							<real>119</real>
+							<real>87</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -901,8 +893,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>96</real>
-							<real>96</real>
+							<real>0.0</real>
+							<real>0.0</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -934,7 +926,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>paused buttons/sound180x180.png</string>
+							<string>gameover background/noads-button.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -945,7 +937,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonHighlighted.png</string>
+							<string>gameover background/noads-button.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1135,41 +1127,7 @@
 			</dict>
 			<dict>
 				<key>UUID</key>
-				<integer>8</integer>
-				<key>animatedProperties</key>
-				<dict>
-					<key>0</key>
-					<dict>
-						<key>scale</key>
-						<dict>
-							<key>keyframes</key>
-							<array>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>1</integer>
-									</dict>
-									<key>name</key>
-									<string>scale</string>
-									<key>time</key>
-									<real>0.0</real>
-									<key>type</key>
-									<integer>4</integer>
-									<key>value</key>
-									<array>
-										<real>1</real>
-										<real>1</real>
-									</array>
-								</dict>
-							</array>
-							<key>name</key>
-							<string>scale</string>
-							<key>type</key>
-							<integer>4</integer>
-						</dict>
-					</dict>
-				</dict>
+				<integer>10</integer>
 				<key>baseClass</key>
 				<string>CCSprite</string>
 				<key>children</key>
@@ -1177,7 +1135,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>Pause</string>
+				<string>Game-label</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -1199,8 +1157,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>154.14666748046875</real>
-							<real>440.11947631835938</real>
+							<real>159</real>
+							<real>421.57318115234375</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -1218,19 +1176,14 @@
 						</array>
 					</dict>
 					<dict>
-						<key>baseValue</key>
-						<array>
-							<real>1</real>
-							<real>1</real>
-						</array>
 						<key>name</key>
 						<string>scale</string>
 						<key>type</key>
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>1</real>
-							<real>1</real>
+							<real>0.51747977733612061</real>
+							<real>0.51747977733612061</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -1243,7 +1196,223 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>paused buttons/pause.png</string>
+							<string>gameover background/Game-label.png</string>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>normalMapSpriteFrame</string>
+						<key>type</key>
+						<string>SpriteFrame</string>
+						<key>value</key>
+						<array>
+							<string></string>
+							<string></string>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>color</string>
+						<key>type</key>
+						<string>Color3</string>
+						<key>value</key>
+						<array>
+							<real>1</real>
+							<real>1</real>
+							<real>1</real>
+							<real>1</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>effects</string>
+						<key>type</key>
+						<string>EffectControl</string>
+						<key>value</key>
+						<array/>
+					</dict>
+				</array>
+			</dict>
+			<dict>
+				<key>UUID</key>
+				<integer>11</integer>
+				<key>baseClass</key>
+				<string>CCSprite</string>
+				<key>children</key>
+				<array/>
+				<key>customClass</key>
+				<string></string>
+				<key>displayName</key>
+				<string>Over-label</string>
+				<key>memberVarAssignmentName</key>
+				<string></string>
+				<key>memberVarAssignmentType</key>
+				<integer>1</integer>
+				<key>properties</key>
+				<array>
+					<dict>
+						<key>name</key>
+						<string>name</string>
+						<key>type</key>
+						<string>StringSimple</string>
+						<key>value</key>
+						<string></string>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>position</string>
+						<key>type</key>
+						<string>Position</string>
+						<key>value</key>
+						<array>
+							<real>159</real>
+							<real>363.56549072265625</real>
+							<integer>0</integer>
+							<integer>0</integer>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>anchorPoint</string>
+						<key>type</key>
+						<string>Point</string>
+						<key>value</key>
+						<array>
+							<real>0.5</real>
+							<real>0.5</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>scale</string>
+						<key>type</key>
+						<string>ScaleLock</string>
+						<key>value</key>
+						<array>
+							<real>0.48497846722602844</real>
+							<real>0.48497846722602844</real>
+							<false/>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>spriteFrame</string>
+						<key>type</key>
+						<string>SpriteFrame</string>
+						<key>value</key>
+						<array>
+							<string></string>
+							<string>gameover background/Over-label.png</string>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>normalMapSpriteFrame</string>
+						<key>type</key>
+						<string>SpriteFrame</string>
+						<key>value</key>
+						<array>
+							<string></string>
+							<string></string>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>color</string>
+						<key>type</key>
+						<string>Color3</string>
+						<key>value</key>
+						<array>
+							<real>1</real>
+							<real>1</real>
+							<real>1</real>
+							<real>1</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>effects</string>
+						<key>type</key>
+						<string>EffectControl</string>
+						<key>value</key>
+						<array/>
+					</dict>
+				</array>
+			</dict>
+			<dict>
+				<key>UUID</key>
+				<integer>12</integer>
+				<key>baseClass</key>
+				<string>CCSprite</string>
+				<key>children</key>
+				<array/>
+				<key>customClass</key>
+				<string></string>
+				<key>displayName</key>
+				<string>Score-label</string>
+				<key>memberVarAssignmentName</key>
+				<string></string>
+				<key>memberVarAssignmentType</key>
+				<integer>1</integer>
+				<key>properties</key>
+				<array>
+					<dict>
+						<key>name</key>
+						<string>name</string>
+						<key>type</key>
+						<string>StringSimple</string>
+						<key>value</key>
+						<string></string>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>position</string>
+						<key>type</key>
+						<string>Position</string>
+						<key>value</key>
+						<array>
+							<real>159</real>
+							<real>296</real>
+							<integer>0</integer>
+							<integer>0</integer>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>anchorPoint</string>
+						<key>type</key>
+						<string>Point</string>
+						<key>value</key>
+						<array>
+							<real>0.5</real>
+							<real>0.5</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>scale</string>
+						<key>type</key>
+						<string>ScaleLock</string>
+						<key>value</key>
+						<array>
+							<real>0.54625296592712402</real>
+							<real>0.54625296592712402</real>
+							<false/>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>spriteFrame</string>
+						<key>type</key>
+						<string>SpriteFrame</string>
+						<key>value</key>
+						<array>
+							<string></string>
+							<string>gameover background/Score-label.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1282,7 +1451,7 @@
 			</dict>
 		</array>
 		<key>customClass</key>
-		<string>PauseLayer</string>
+		<string>gameover</string>
 		<key>displayName</key>
 		<string>CCNode</string>
 		<key>memberVarAssignmentName</key>
@@ -1297,7 +1466,7 @@
 				<key>type</key>
 				<string>StringSimple</string>
 				<key>value</key>
-				<string>pause</string>
+				<string></string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -1362,7 +1531,7 @@
 			<key>ext</key>
 			<string>phone</string>
 			<key>height</key>
-			<integer>568</integer>
+			<integer>500</integer>
 			<key>name</key>
 			<string>Phone</string>
 			<key>scale</key>
@@ -1376,7 +1545,7 @@
 			<key>ext</key>
 			<string>tablet phonehd</string>
 			<key>height</key>
-			<integer>568</integer>
+			<integer>500</integer>
 			<key>name</key>
 			<string>Tablet</string>
 			<key>scale</key>
@@ -1425,7 +1594,7 @@
 		</dict>
 	</array>
 	<key>stageBorder</key>
-	<integer>0</integer>
+	<integer>1</integer>
 	<key>stageColor</key>
 	<integer>0</integer>
 </dict>
