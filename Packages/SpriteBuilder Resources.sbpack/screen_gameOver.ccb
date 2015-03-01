@@ -71,8 +71,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>159</real>
-							<real>257</real>
+							<real>160</real>
+							<real>205</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -179,8 +179,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>57.767009735107422</real>
-							<real>104.66667938232422</real>
+							<real>58.767009735107422</real>
+							<real>52.666679382324219</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -505,8 +505,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>159</real>
-							<real>104.66667938232422</real>
+							<real>160</real>
+							<real>52.666679382324219</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -543,7 +543,7 @@
 						<string>Block</string>
 						<key>value</key>
 						<array>
-							<string></string>
+							<string>ask_restart_game</string>
 							<integer>1</integer>
 						</array>
 					</dict>
@@ -798,6 +798,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -831,8 +833,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>259.78280639648438</real>
-							<real>104.66667938232422</real>
+							<real>260.78280639648438</real>
+							<real>52.666679382324219</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -1157,8 +1159,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>159</real>
-							<real>421.57318115234375</real>
+							<real>160</real>
+							<real>369.57318115234375</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -1265,8 +1267,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>159</real>
-							<real>363.56549072265625</real>
+							<real>160</real>
+							<real>311.56549072265625</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -1373,8 +1375,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>159</real>
-							<real>296</real>
+							<real>160</real>
+							<real>244</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -1451,7 +1453,7 @@
 			</dict>
 		</array>
 		<key>customClass</key>
-		<string>gameover</string>
+		<string>GameOverLayer</string>
 		<key>displayName</key>
 		<string>CCNode</string>
 		<key>memberVarAssignmentName</key>
@@ -1490,7 +1492,7 @@
 				<key>value</key>
 				<array>
 					<real>320</real>
-					<real>500</real>
+					<real>410</real>
 					<integer>0</integer>
 					<integer>0</integer>
 				</array>
@@ -1531,7 +1533,7 @@
 			<key>ext</key>
 			<string>phone</string>
 			<key>height</key>
-			<integer>500</integer>
+			<integer>410</integer>
 			<key>name</key>
 			<string>Phone</string>
 			<key>scale</key>
@@ -1545,7 +1547,7 @@
 			<key>ext</key>
 			<string>tablet phonehd</string>
 			<key>height</key>
-			<integer>500</integer>
+			<integer>410</integer>
 			<key>name</key>
 			<string>Tablet</string>
 			<key>scale</key>

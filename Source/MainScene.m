@@ -25,11 +25,10 @@ BOOL jumping = false;
     CCNode *_ground2;
     CCNode *_background;
     CCNode *_startButton;
-    
+    CCNode *_btn_fire_fireball;
     CCNode *screen_pause;
+    CCNode *screen_game_over;
     
-    CCNode *weapon;
-
     // Menus
     //CCLayoutBox *menu_box;
     CCLayoutBox *pause_menu;
@@ -49,6 +48,7 @@ BOOL jumping = false;
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero level:(CCNode *)level
 {
     //CCLOG(@"Game over");
+    [self gameOver];
     return TRUE;
 }
 
@@ -79,6 +79,8 @@ BOOL jumping = false;
     score_label.position = ccp((winSize.width/2), (winSize.height/4.5)*4);
     
     [score_label setOpacity:0.0];
+    
+    screen_game_over = (CCNode *) [CCBReader load:@"screen_gameOver"];
 }
 
 //-(void)fadeBackground
@@ -113,6 +115,27 @@ BOOL jumping = false;
     [UIView commitAnimations];
 }
 
+-(void) gameOver
+{
+    playing = false;
+    
+    [_background.animationManager setPaused:true];
+    screen_game_over.anchorPoint = ccp(0.5f, 0.0f);
+    screen_game_over.position = ccp(winSize.width/2, winSize.height - 1);
+    screen_game_over.name = @"screen_game_over";
+    
+    [self addChild:screen_game_over];
+    [self removeChild:_btn_fire_fireball];
+    
+    screen_game_over.anchorPoint = ccp(0.5f, 0.5f);
+    id bounce = [CCActionJumpBy actionWithDuration:0.17f position:ccp(0.f, (winSize.height/2)* -1.f) height:-180 jumps:1];
+//    id jumping = [CCActionJumpBy actionWithDuration:2.3f position:ccp(0,20) height:20 jumps:1];
+ //   id jumping1 = [CCActionJumpBy actionWithDuration:2.3f position:ccp(0,0) height:20 jumps:1];
+//    id seq = [CCActionSequence actions:Jump_Up, jumping, jumping1, nil];
+    id seq = [CCActionSequence actions:bounce, nil];
+    [screen_game_over runAction:seq];
+}
+
 -(void)jumpRunner
 {
     [_hero.animationManager runAnimationsForSequenceNamed:@"jumping"];
@@ -137,8 +160,8 @@ BOOL jumping = false;
     
     firstObstaclePosition = (_hero.position.x - _hero.contentSize.width) + winSize.width;
     obstaclesMaxQt = ( winSize.width / (int) distanceBetweenObstacles ) * 2;
-    weapon = (CCNode *) [CCBReader load:weapons_cbs[0]];
     screen_pause = (CCNode *) [CCBReader load:@"Pause"];
+    _btn_fire_fireball.visible = TRUE;
     
     [self spawnNewObstacle];
     [self spawnNewObstacle];
@@ -147,7 +170,8 @@ BOOL jumping = false;
     [self removeChild:_startButton];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resume:) name:@"resume_game_from_pause" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(restartGame:) name:@"restart_game" object:nil];
+
     playing = true;
 }
 
@@ -179,6 +203,14 @@ BOOL jumping = false;
     [self addChild:screen_pause];
     
     [self removeChildByName:@"menu_box"];
+}
+
+-(void) restartGame:(NSNotification *) notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
+    [[CCDirector sharedDirector] replaceScene:mainScene];
 }
 
 -(void)resume:(NSNotification *)notification
@@ -264,6 +296,8 @@ BOOL jumping = false;
 
 -(void)spawnNewFireball
 {
+    CCNode *weapon;
+    weapon = (CCNode *) [CCBReader load:weapons_cbs[0]];
     weapon.position = ccp(_hero.position.x + 50, _hero.position.y);
     weapon.scale = 0.3;
     weapon.physicsBody.sensor = true;
@@ -282,7 +316,7 @@ BOOL jumping = false;
 
 - (void)update:(CCTime)delta
 {
-    if( !paused )
+    if(playing && !paused )
     {
         // loop the ground
         for (CCNode *ground in _grounds)
