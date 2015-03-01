@@ -13,7 +13,7 @@ BOOL playing = false;
 BOOL paused = false;
 CGSize winSize;
 NSInteger obstaclesMaxQt;
-NSString *obstacles_cbs[2]  = {@"Obstacle", @"obstacle_triangle"};
+NSString *obstacles_cbs[3]  = {@"Obstacle", @"obstacle_triangle", @"enemy"};
 NSString *weapons_cbs[1]    = {@"weapon_fireball"};
 BOOL jumping = false;
 
@@ -234,18 +234,25 @@ BOOL jumping = false;
         previousObstacleXPosition = firstObstaclePosition;
     }
     
-    NSInteger cb_id = arc4random_uniform(2);
+    NSInteger cb_id = arc4random_uniform(3);
     CGFloat randomDistance = arc4random_uniform(winSize.width) + distanceBetweenObstacles;
     
     Obstacle *obstacle = (Obstacle *) [CCBReader load:obstacles_cbs[cb_id]];
     obstacle.position = ccp(previousObstacleXPosition + randomDistance, 211);
+    
     switch (cb_id) {
         case 0:
             obstacle.scale = 0.8;
             break;
             
         case 1:
-            obstacle.scale = 1.4;
+            obstacle.scale = 1.0;
+            break;
+        case 2:
+            obstacle.scale = 0.4;
+            obstacle.anchorPoint = ccp(0.5f, 0.0f);
+            obstacle.position = ccp(previousObstacleXPosition + randomDistance, 211);
+            obstacle.animationManager.playbackSpeed = 1.8f;
             break;
         default:
             break;
