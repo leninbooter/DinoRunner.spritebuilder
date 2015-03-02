@@ -9,7 +9,7 @@
 static const CGFloat scrollSpeed = 300.f;
 CGFloat firstObstaclePosition;
 static const CGFloat distanceBetweenObstacles = 220.f;
-BOOL playing = false;
+BOOL playing = NO;
 BOOL paused = false;
 CGSize winSize;
 NSInteger obstaclesMaxQt;
@@ -117,7 +117,9 @@ BOOL jumping = false;
 
 -(void) gameOver
 {
-    playing = false;
+    if(playing)
+    {
+    playing = NO;
     
     [_background.animationManager setPaused:true];
     screen_game_over.anchorPoint = ccp(0.5f, 0.0f);
@@ -129,17 +131,15 @@ BOOL jumping = false;
     
     screen_game_over.anchorPoint = ccp(0.5f, 0.5f);
     id bounce = [CCActionJumpBy actionWithDuration:0.17f position:ccp(0.f, (winSize.height/2)* -1.f) height:-180 jumps:1];
-//    id jumping = [CCActionJumpBy actionWithDuration:2.3f position:ccp(0,20) height:20 jumps:1];
- //   id jumping1 = [CCActionJumpBy actionWithDuration:2.3f position:ccp(0,0) height:20 jumps:1];
-//    id seq = [CCActionSequence actions:Jump_Up, jumping, jumping1, nil];
     id seq = [CCActionSequence actions:bounce, nil];
     [screen_game_over runAction:seq];
+    }
 }
 
 -(void)jumpRunner
 {
     [_hero.animationManager runAnimationsForSequenceNamed:@"jumping"];
-    id Jump_Up = [CCActionJumpBy actionWithDuration:1.2f position:ccp(0,120) height:20 jumps:1];
+    id Jump_Up = [CCActionJumpBy actionWithDuration:0.2f position:ccp(0,120) height:20 jumps:1];
     id jumping = [CCActionJumpBy actionWithDuration:0.3f position:ccp(0,-120) height:20 jumps:1];
     id seq = [CCActionSequence actions:Jump_Up, jumping, nil];
     [_hero runAction:seq];
@@ -162,7 +162,7 @@ BOOL jumping = false;
     obstaclesMaxQt = ( winSize.width / (int) distanceBetweenObstacles ) * 2;
     screen_pause = (CCNode *) [CCBReader load:@"Pause"];
     _btn_fire_fireball.visible = TRUE;
-    
+    playing = YES;
     [self spawnNewObstacle];
     [self spawnNewObstacle];
     [self addChild:score_label];
@@ -172,7 +172,7 @@ BOOL jumping = false;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resume:) name:@"resume_game_from_pause" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(restartGame:) name:@"restart_game" object:nil];
 
-    playing = true;
+    
 }
 
 //-(void) addSwipeToJumpGesture {
@@ -257,6 +257,9 @@ BOOL jumping = false;
 
 - (void)spawnNewObstacle
 {
+    NSLog(@"obstacle");
+    if(playing)
+    {
     CCNode *previousObstacle = [_obstacles lastObject];
     
     CGFloat previousObstacleXPosition = previousObstacle.position.x;
@@ -289,9 +292,11 @@ BOOL jumping = false;
         default:
             break;
     }
-    
+        NSLog(@"play-add obstable to physics node");
     [_physicsNode addChild:obstacle];
+            NSLog(@"play-add obstale to obstacles");
     [_obstacles addObject:obstacle];
+    }
 }
 
 -(void)spawnNewFireball
