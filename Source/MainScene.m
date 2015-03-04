@@ -319,6 +319,7 @@ BOOL jumping = false;
     }
 }
 
+
 - (void)update:(CCTime)delta
 {
     if(playing && !paused )
