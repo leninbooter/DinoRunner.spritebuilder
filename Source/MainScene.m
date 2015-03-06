@@ -5,6 +5,7 @@
 #import "../Obstacle.h"
 #import <CCDirector.h>
 #import "CCBReader.h"
+#import "CCTextureCache.h"
 
 static const CGFloat scrollSpeed = 300.f;
 CGFloat firstObstaclePosition;
@@ -45,6 +46,39 @@ BOOL jumping = false;
     CCLabelTTF *score_label;
     
 }
+
+-(void)addExplosion:(CGPoint)position
+{
+    CCParticleExplosion* particleExplosion;
+    particleExplosion = [[CCParticleExplosion alloc] initWithTotalParticles:4000];
+    particleExplosion.texture = [[CCTextureCache sharedTextureCache] addImage:@"ccbParticleFire.png"];
+    particleExplosion.life = 0.0f;
+    particleExplosion.lifeVar = 0.7f;
+    particleExplosion.startSize = 5;
+    particleExplosion.startSizeVar = 3;
+    particleExplosion.endSize = 2;
+    particleExplosion.endSizeVar = 0;
+    particleExplosion.angle = 0;
+    particleExplosion.angleVar = 360;
+    particleExplosion.speed = 0;
+    particleExplosion.speedVar = 200;
+    particleExplosion.position = position;
+    
+    CGPoint g = CGPointMake(1.15, 1.f);
+    particleExplosion.gravity = g;
+    
+    
+   /* particleExplosion.startColor = [CCColor colorWithRed:254 green:27 blue:36];
+    particleExplosion.endColor = [CCColor colorWithRed:1 green:0 blue:0];
+
+    particleExplosion.startColorVar = [CCColor colorWithRed:86 green:39 blue:116];
+    particleExplosion.endColorVar = [CCColor colorWithRed:1 green:0 blue:0];
+*/
+    
+    [self addChild:particleExplosion];
+    [particleExplosion resetSystem];
+}
+
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero level:(CCNode *)level
 {
     //CCLOG(@"Game over");
@@ -308,6 +342,7 @@ BOOL jumping = false;
     weapon.physicsBody.sensor = true;
     [_physicsNode addChild:weapon];
     [_fireballs addObject:weapon];
+    [self addExplosion:_hero.position];
 }
 
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
