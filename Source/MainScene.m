@@ -62,21 +62,27 @@ BOOL jumping = false;
     particleExplosion.angleVar = 360;
     particleExplosion.speed = 0;
     particleExplosion.speedVar = 200;
-    particleExplosion.position = position;
+    particleExplosion.blendAdditive = YES;
     
     CGPoint g = CGPointMake(1.15, 1.f);
-    particleExplosion.gravity = g;
+    //particleExplosion.gravity = g;
     
-    
-   /* particleExplosion.startColor = [CCColor colorWithRed:254 green:27 blue:36];
+    particleExplosion.startColor = [CCColor colorWithRed:254 green:27 blue:36];
     particleExplosion.endColor = [CCColor colorWithRed:1 green:0 blue:0];
 
     particleExplosion.startColorVar = [CCColor colorWithRed:86 green:39 blue:116];
     particleExplosion.endColorVar = [CCColor colorWithRed:1 green:0 blue:0];
-*/
+    
+    CGPoint positionWorldPosition = [_physicsNode convertToWorldSpace:position];
+    // get the screen position of the ground
+    CGPoint positionScreenPosition = [self convertToNodeSpace:positionWorldPosition];
+    particleExplosion.position = positionScreenPosition;
+    
+    particleExplosion.posVar = ccp(10.f, 65.f);
     
     [self addChild:particleExplosion];
     [particleExplosion resetSystem];
+    CCLOG(@"%.2f %.2f", particleExplosion.position.x, particleExplosion.position.y);
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero level:(CCNode *)level
@@ -96,6 +102,28 @@ BOOL jumping = false;
     return TRUE;
 }
 
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero robot:(CCSprite *)robot
+{
+    //CCLOG(@"Game over");
+    if(robot.visible == YES)
+    {
+    [self gameOver];
+    }
+    return TRUE;
+        
+}
+
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair fireball:(CCSprite *)fireball robot:(CCSprite *)robot
+{
+    if(robot.visible == YES)
+    {
+    robot.anchorPoint = ccp(0.5f, 0.5f);
+    [self addExplosion:robot.position];
+    robot.visible = NO;
+    [fireball removeFromParent];
+    }
+    return TRUE;
+}
 
 - (void)didLoadFromCCB
 {
@@ -291,7 +319,6 @@ BOOL jumping = false;
 
 - (void)spawnNewObstacle
 {
-    NSLog(@"obstacle");
     if(playing)
     {
     CCNode *previousObstacle = [_obstacles lastObject];
@@ -326,23 +353,23 @@ BOOL jumping = false;
         default:
             break;
     }
-        NSLog(@"play-add obstable to physics node");
     [_physicsNode addChild:obstacle];
-            NSLog(@"play-add obstale to obstacles");
     [_obstacles addObject:obstacle];
     }
 }
 
 -(void)spawnNewFireball
 {
-    CCNode *weapon;
-    weapon = (CCNode *) [CCBReader load:weapons_cbs[0]];
-    weapon.position = ccp(_hero.position.x + 50, _hero.position.y);
-    weapon.scale = 0.3;
-    weapon.physicsBody.sensor = true;
-    [_physicsNode addChild:weapon];
-    [_fireballs addObject:weapon];
-    [self addExplosion:_hero.position];
+    if( _fireballs.count < 7)
+    {
+        CCNode *weapon;
+        weapon = (CCNode *) [CCBReader load:weapons_cbs[0]];
+        weapon.position = ccp(_hero.position.x + 50, _hero.position.y);
+        weapon.scale = 0.3;
+        weapon.physicsBody.sensor = true;
+        [_physicsNode addChild:weapon];
+        [_fireballs addObject:weapon];
+    }
 }
 
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event

@@ -110,7 +110,7 @@
 				<string>Point</string>
 				<key>value</key>
 				<array>
-					<real>60</real>
+					<real>10</real>
 					<real>100</real>
 				</array>
 			</dict>
@@ -212,16 +212,16 @@
 				<key>value</key>
 				<array>
 					<array>
-						<real>0.99747985601425171</real>
-						<real>0.10579437762498856</real>
-						<real>0.14115208387374878</real>
-						<real>1</real>
-					</array>
-					<array>
 						<real>0.062745101749897003</real>
 						<real>0.35294118523597717</real>
 						<real>0.45882353186607361</real>
 						<real>1</real>
+					</array>
+					<array>
+						<real>0.9994240403175354</real>
+						<real>0.98555368185043335</real>
+						<real>0.0</real>
+						<real>0.0</real>
 					</array>
 				</array>
 			</dict>
@@ -233,8 +233,8 @@
 				<key>value</key>
 				<array>
 					<array>
-						<real>0.9994240403175354</real>
-						<real>0.98555368185043335</real>
+						<real>0.0</real>
+						<real>0.0</real>
 						<real>0.0</real>
 						<real>0.0</real>
 					</array>
