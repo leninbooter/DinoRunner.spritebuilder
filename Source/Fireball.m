@@ -9,9 +9,11 @@
 #import "Fireball.h"
 
 @implementation Fireball
+
 -(void)didLoadFromCCB
 {
     self.physicsBody.collisionType = @"fireball";
     self.physicsBody.sensor = TRUE;
 }
+
 @end

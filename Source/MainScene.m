@@ -7,7 +7,7 @@
 #import "CCBReader.h"
 #import "CCTextureCache.h"
 
-static const CGFloat scrollSpeed = 300.f;
+static const CGFloat scrollSpeed = 280.0f;
 CGFloat firstObstaclePosition;
 static const CGFloat distanceBetweenObstacles = 220.f;
 BOOL playing = NO;
@@ -26,9 +26,12 @@ BOOL jumping = false;
     CCNode *_ground2;
     CCNode *_background;
     CCNode *_startButton;
+    CCNode *_pause_game_btn;
     CCNode *_btn_fire_fireball;
     CCNode *screen_pause;
     CCNode *screen_game_over;
+    CCNode *_no_ads_button;
+    CCNode *_sound_button;
     
     // Menus
     //CCLayoutBox *menu_box;
@@ -43,7 +46,7 @@ BOOL jumping = false;
     NSMutableArray *_playing_menu_items;
     NSInteger hero_y_ini_pos;
     NSInteger points;
-    CCLabelTTF *score_label;
+    CCLabelTTF *_score_label;
     
 }
 
@@ -95,9 +98,9 @@ BOOL jumping = false;
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero goal:(CCNode *)goal
 {
     points++;
-    score_label.string = [NSString stringWithFormat:@"%d", (int)points];
+    _score_label.string = [NSString stringWithFormat:@"%d", (int)points];
     
-    [self fadeText:score_label duration:1.5 curve:0 x:0 y:0 alpha:255.0];
+    [self fadeText:_score_label duration:1.5 curve:0 x:0 y:0 alpha:255.0];
     //CCLOG(@"colision");
     return TRUE;
 }
@@ -137,10 +140,6 @@ BOOL jumping = false;
     winSize = [CCDirector sharedDirector].viewSize;
     
     points = 0;
-    score_label = [[CCLabelTTF alloc] initWithString:[NSString stringWithFormat:@"%01ld", (long)points] fontName:@"Helvetica" fontSize:52];
-    score_label.position = ccp((winSize.width/2), (winSize.height/4.5)*4);
-    
-    [score_label setOpacity:0.0];
     
     screen_game_over = (CCNode *) [CCBReader load:@"screen_gameOver"];
 }
@@ -198,6 +197,54 @@ BOOL jumping = false;
     }
 }
 
+-(id) init
+{
+    // always call "super" init
+    // Apple recommends to re-assign "self" with the "super" return value
+    if( (self=[super init] )) {
+        [CCBReader load:weapons_cbs[0]];
+        [CCBReader load:obstacles_cbs[0]];
+        [CCBReader load:obstacles_cbs[1]];
+        [CCBReader load:obstacles_cbs[3]];
+        [CCBReader load:@"Pause"];
+        
+        _obstacles = [NSMutableArray array];
+        _fireballs = [NSMutableArray array];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resume:) name:@"resume_game_from_pause" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(restartGame:) name:@"restart_game" object:nil];
+        
+        // init view
+        //CGSize winSize = [[CCDirector sharedDirector] winSize];
+        
+        /*_progress = [CCProgressTimer progressWithFile:@"Icon.png"];
+        _progress.type = kCCProgressTimerTypeRadialCW;
+        _progress.position = ccp(winSize.width / 2, winSize.height / 2);
+        [self addChild:_progress];
+        
+        _loadingLabel = [CCLabel labelWithString:@"Loading..." fontName:@"Marker Felt" fontSize:24];
+        _loadingLabel.position = ccp(winSize.width / 2, winSize.height / 2 + [_progress contentSize].height / 2 + [_loadingLabel contentSize].height);
+        [self addChild:_loadingLabel];
+        
+        // load resources
+        ResourcesLoader *loader = [ResourcesLoader sharedLoader];
+        NSArray *extensions = [NSArray arrayWithObjects:@"png", @"wav", nil];
+        
+        for (NSString *extension in extensions) {
+            NSArray *paths = [[NSBundle mainBundle] pathsForResourcesOfType:extension inDirectory:nil];
+            for (NSString *filename in paths) {
+                filename = [[filename componentsSeparatedByString:@"/"] lastObject];
+                [loader addResources:filename, nil];
+            }
+        }
+        
+        // load it async
+        [loader loadResources:self];*/
+    }
+    return self;
+}
+
+
 -(void)jumpRunner
 {
     [_hero.animationManager runAnimationsForSequenceNamed:@"jumping"];
@@ -215,26 +262,24 @@ BOOL jumping = false;
 
 - (void)play //_startButton selector
 {
-    _obstacles = [NSMutableArray array];
-    _fireballs = [NSMutableArray array];
-    
-    hero_y_ini_pos = [[NSString stringWithFormat: @"%.2f", _hero.position.y] integerValue];
-    
-    firstObstaclePosition = (_hero.position.x - _hero.contentSize.width) + winSize.width;
-    obstaclesMaxQt = ( winSize.width / (int) distanceBetweenObstacles ) * 2;
-    screen_pause = (CCNode *) [CCBReader load:@"Pause"];
     _btn_fire_fireball.visible = TRUE;
     playing = YES;
+    CCLOG(@"1");
+    hero_y_ini_pos = [[NSString stringWithFormat: @"%.2f", _hero.position.y] integerValue];
+    CCLOG(@"2");
+    firstObstaclePosition = (_hero.position.x - _hero.contentSize.width) + winSize.width;
+    CCLOG(@"3");
+    obstaclesMaxQt = ( winSize.width / (int) distanceBetweenObstacles ) * 2;
+    CCLOG(@"4");
+    screen_pause = (CCNode *) [CCBReader load:@"Pause"];
+        CCLOG(@"5");
     [self spawnNewObstacle];
     [self spawnNewObstacle];
-    [self addChild:score_label];
-    [self setup_menu];
+    _pause_game_btn.visible = YES;
+        CCLOG(@"6");
     [self removeChild:_startButton];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resume:) name:@"resume_game_from_pause" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(restartGame:) name:@"restart_game" object:nil];
-
-    
+    [self removeChild:_no_ads_button];
+    [self removeChild:_sound_button];
 }
 
 //-(void) addSwipeToJumpGesture {
@@ -249,7 +294,7 @@ BOOL jumping = false;
 //}
 
 
-- (void) pause_game:(id)sender
+-(void)pause_game
 {
     paused = true;
     
@@ -299,21 +344,6 @@ BOOL jumping = false;
 
 - (void)setup_menu
 {
-    CCSpriteFrame * btn_pause_sprite = [CCSpriteFrame frameWithImageNamed:@"btn_pause.png"];
-    
-    CCButton *btn_pause = [CCButton buttonWithTitle:@"" spriteFrame:btn_pause_sprite];
-    [btn_pause setTarget:self selector:@selector(pause_game:)];
-
-    CCLayoutBox *menu_box;
-    menu_box = [[CCLayoutBox alloc] init];
-    menu_box.name = @"menu_box";
-    menu_box.direction = CCLayoutBoxDirectionVertical;
-    menu_box.spacing    = 30.0f;
-    menu_box.position = ccp(winSize.width - 20, winSize.height - 20);
-    menu_box.anchorPoint = ccp(1,1);
-    
-    [menu_box addChild:btn_pause];
-    [self addChild:menu_box];
     
 }
 
@@ -362,8 +392,8 @@ BOOL jumping = false;
 {
     if( _fireballs.count < 7)
     {
-        CCNode *weapon;
-        weapon = (CCNode *) [CCBReader load:weapons_cbs[0]];
+        CCSprite *weapon;
+        weapon = (CCSprite *) [CCBReader load:weapons_cbs[0]];
         weapon.position = ccp(_hero.position.x + 50, _hero.position.y);
         weapon.scale = 0.3;
         weapon.physicsBody.sensor = true;
@@ -455,7 +485,7 @@ BOOL jumping = false;
                 }
                 [offScreenFireballs addObject:fireball];
             }else{
-                fireball.position = ccp(fireball.position.x + delta * (scrollSpeed*1.5), fireball.position.y);
+                fireball.position = ccp(fireball.position.x + delta * (scrollSpeed*1.7), fireball.position.y);
             }
         }
         

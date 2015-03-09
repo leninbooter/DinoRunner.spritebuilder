@@ -15,4 +15,13 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"resume_game_from_pause" object:self];
 }
 
+-(void)score
+{
+    
+}
+
+-(void)sound
+{
+    
+}
 @end
