@@ -1,0 +1,34 @@
+{
+  "images" : [
+    {
+      "idiom" : "iphone",
+<<<<<<< Updated upstream
+      "filename" : "Score_Button66x66.png",
+      "unassigned" : true,
+      "scale" : "1x"
+=======
+      "scale" : "1x",
+      "filename" : "i654-1.png"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "filename" : "i654.png"
+    },
+    {
+      "idiom" : "iphone",
+      "subtype" : "retina4",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "filename" : "i6.png"
+>>>>>>> Stashed changes
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

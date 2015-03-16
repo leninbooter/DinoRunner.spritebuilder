@@ -10,5 +10,4 @@
 
 @interface GameOverLayer : CCNode
 
-
 @end

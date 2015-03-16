@@ -187,12 +187,6 @@ BOOL jumping = false;
     screen_game_over.position = ccp(winSize.width/2, winSize.height - 1);
     screen_game_over.name = @"screen_game_over";
     
-        NSDictionary *userInfo = @{
-                                   @"score": [NSString stringWithFormat:@"%d", (int)points],
-                                   };
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"set_score_to_label" object:self userInfo:userInfo];
-
-        
     [self addChild:screen_game_over];
     [self removeChild:_btn_fire_fireball];
     
