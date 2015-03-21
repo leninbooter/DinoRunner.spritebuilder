@@ -48,6 +48,8 @@ BOOL jumping = false;
     NSInteger points;
     CCLabelTTF *_score_label;
     
+    
+    
 }
 
 -(void)addExplosion:(CGPoint)position
@@ -194,6 +196,8 @@ BOOL jumping = false;
     id bounce = [CCActionJumpBy actionWithDuration:0.17f position:ccp(0.f, (winSize.height/2)* -1.f) height:-180 jumps:1];
     id seq = [CCActionSequence actions:bounce, nil];
     [screen_game_over runAction:seq];
+    _pause_game_btn.visible = NO;
+        [[OALSimpleAudio sharedInstance] stopBg];
     }
 }
 
@@ -214,34 +218,59 @@ BOOL jumping = false;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resume:) name:@"resume_game_from_pause" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(restartGame:) name:@"restart_game" object:nil];
         
-        // init view
-        //CGSize winSize = [[CCDirector sharedDirector] winSize];
         
-        /*_progress = [CCProgressTimer progressWithFile:@"Icon.png"];
-        _progress.type = kCCProgressTimerTypeRadialCW;
-        _progress.position = ccp(winSize.width / 2, winSize.height / 2);
-        [self addChild:_progress];
-        
-        _loadingLabel = [CCLabel labelWithString:@"Loading..." fontName:@"Marker Felt" fontSize:24];
-        _loadingLabel.position = ccp(winSize.width / 2, winSize.height / 2 + [_progress contentSize].height / 2 + [_loadingLabel contentSize].height);
-        [self addChild:_loadingLabel];
-        
-        // load resources
-        ResourcesLoader *loader = [ResourcesLoader sharedLoader];
-        NSArray *extensions = [NSArray arrayWithObjects:@"png", @"wav", nil];
-        
-        for (NSString *extension in extensions) {
-            NSArray *paths = [[NSBundle mainBundle] pathsForResourcesOfType:extension inDirectory:nil];
-            for (NSString *filename in paths) {
-                filename = [[filename componentsSeparatedByString:@"/"] lastObject];
-                [loader addResources:filename, nil];
-            }
+        // On iOS 6 ADBannerView introduces a new initializer, use it when available.
+        if ([ADBannerView instancesRespondToSelector:@selector(initWithAdType:)]) {
+            _adView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+            
+        } else {
+            _adView = [[ADBannerView alloc] init];
         }
+        _adView.requiredContentSizeIdentifiers = [NSSet setWithObject:ADBannerContentSizeIdentifierPortrait];
+        _adView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
+        [[[CCDirector sharedDirector]view]addSubview:_adView];
+        [_adView setBackgroundColor:[UIColor clearColor]];
+        [[[CCDirector sharedDirector]view]addSubview:_adView];
+        _adView.delegate = self;
         
-        // load it async
-        [loader loadResources:self];*/
+        [[OALSimpleAudio sharedInstance] preloadBg:@"bounce_bg_music.mp3"];
     }
+    [self layoutAnimated:YES];
     return self;
+}
+
+- (void)layoutAnimated:(BOOL)animated
+{
+    // As of iOS 6.0, the banner will automatically resize itself based on its width.
+    // To support iOS 5.0 however, we continue to set the currentContentSizeIdentifier appropriately.
+    CGRect contentFrame = [CCDirector sharedDirector].view.bounds;
+    if (contentFrame.size.width < contentFrame.size.height) {
+        _adView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
+    } else {
+        _adView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierLandscape;
+    }
+    
+    CGRect bannerFrame = _adView.frame;
+    if (_adView.bannerLoaded) {
+        contentFrame.size.height -= _adView.frame.size.height;
+        bannerFrame.origin.y = contentFrame.size.height;
+    } else {
+        bannerFrame.origin.y = contentFrame.size.height;
+    }
+    
+    [UIView animateWithDuration:animated ? 0.25 : 0.0 animations:^{
+        _adView.frame = bannerFrame;
+    }];
+}
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner {
+    [self layoutAnimated:YES];
+     NSLog(@"iAdBanner loaded");
+}
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+    [self layoutAnimated:YES];
+     NSLog(@"iAdBanner failed");
 }
 
 
@@ -272,14 +301,16 @@ BOOL jumping = false;
     obstaclesMaxQt = ( winSize.width / (int) distanceBetweenObstacles ) * 2;
     CCLOG(@"4");
     screen_pause = (CCNode *) [CCBReader load:@"Pause"];
-        CCLOG(@"5");
+    CCLOG(@"5");
     [self spawnNewObstacle];
     [self spawnNewObstacle];
     _pause_game_btn.visible = YES;
-        CCLOG(@"6");
+    CCLOG(@"6");
     [self removeChild:_startButton];
     [self removeChild:_no_ads_button];
     [self removeChild:_sound_button];
+    
+   [[OALSimpleAudio sharedInstance] playBgWithLoop:YES];
 }
 
 //-(void) addSwipeToJumpGesture {
@@ -310,6 +341,9 @@ BOOL jumping = false;
     [self addChild:screen_pause];
     
     [self removeChildByName:@"menu_box"];
+    _pause_game_btn.visible = NO;
+    
+    [[OALSimpleAudio sharedInstance] setBgVolume:0.3f];
 }
 
 -(void) restartGame:(NSNotification *) notification
@@ -340,6 +374,7 @@ BOOL jumping = false;
     }
     
     paused = false;
+    [[OALSimpleAudio sharedInstance] setBgVolume:1.0f];
 }
 
 - (void)setup_menu
