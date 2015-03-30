@@ -32,6 +32,7 @@ BOOL jumping = false;
     CCNode *screen_game_over;
     CCNode *_no_ads_button;
     CCNode *_sound_button;
+    CCNode *_game_title;
     
     // Menus
     //CCLayoutBox *menu_box;
@@ -103,13 +104,12 @@ BOOL jumping = false;
     _score_label.string = [NSString stringWithFormat:@"%d", (int)points];
     
     [self fadeText:_score_label duration:1.5 curve:0 x:0 y:0 alpha:255.0];
-    //CCLOG(@"colision");
+
     return TRUE;
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero robot:(CCSprite *)robot
 {
-    //CCLOG(@"Game over");
     if(robot.visible == YES)
     {
     [self gameOver];
@@ -122,10 +122,12 @@ BOOL jumping = false;
 {
     if(robot.visible == YES)
     {
-    robot.anchorPoint = ccp(0.5f, 0.5f);
-    [self addExplosion:robot.position];
-    robot.visible = NO;
-    [fireball removeFromParent];
+        points++;
+        _score_label.string = [NSString stringWithFormat:@"%d", (int)points];
+        robot.anchorPoint = ccp(0.5f, 0.5f);
+        [self addExplosion:robot.position];
+        robot.visible = NO;
+        [fireball removeFromParent];
     }
     return TRUE;
 }
@@ -182,21 +184,27 @@ BOOL jumping = false;
 {
     if(playing)
     {
-    playing = NO;
+        playing = NO;
     
-    [_background.animationManager setPaused:true];
-    screen_game_over.anchorPoint = ccp(0.5f, 0.0f);
-    screen_game_over.position = ccp(winSize.width/2, winSize.height - 1);
-    screen_game_over.name = @"screen_game_over";
+        [_background.animationManager setPaused:true];
+        screen_game_over.anchorPoint = ccp(0.5f, 0.0f);
+        screen_game_over.position = ccp(winSize.width/2, winSize.height - 1);
+        screen_game_over.name = @"screen_game_over";
     
-    [self addChild:screen_game_over];
-    [self removeChild:_btn_fire_fireball];
+        [self addChild:screen_game_over];
+        [self removeChild:_btn_fire_fireball];
     
-    screen_game_over.anchorPoint = ccp(0.5f, 0.5f);
-    id bounce = [CCActionJumpBy actionWithDuration:0.17f position:ccp(0.f, (winSize.height/2)* -1.f) height:-180 jumps:1];
-    id seq = [CCActionSequence actions:bounce, nil];
-    [screen_game_over runAction:seq];
-    _pause_game_btn.visible = NO;
+        screen_game_over.anchorPoint = ccp(0.5f, 0.5f);
+        id bounce = [CCActionJumpBy actionWithDuration:0.17f position:ccp(0.f, (winSize.height/2)* -1.f) height:-180 jumps:1];
+        id seq = [CCActionSequence actions:bounce, nil];
+        [screen_game_over runAction:seq];
+        _pause_game_btn.visible = NO;
+        
+        NSDictionary *userInfo = @{
+                                   @"score": [NSString stringWithFormat:@"%d", (int)points],
+                                   };
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"set_score_to_label" object:self userInfo:userInfo];
+
         [[OALSimpleAudio sharedInstance] stopBg];
     }
 }
@@ -293,22 +301,18 @@ BOOL jumping = false;
 {
     _btn_fire_fireball.visible = TRUE;
     playing = YES;
-    CCLOG(@"1");
     hero_y_ini_pos = [[NSString stringWithFormat: @"%.2f", _hero.position.y] integerValue];
-    CCLOG(@"2");
     firstObstaclePosition = (_hero.position.x - _hero.contentSize.width) + winSize.width;
-    CCLOG(@"3");
     obstaclesMaxQt = ( winSize.width / (int) distanceBetweenObstacles ) * 2;
-    CCLOG(@"4");
     screen_pause = (CCNode *) [CCBReader load:@"Pause"];
-    CCLOG(@"5");
     [self spawnNewObstacle];
     [self spawnNewObstacle];
     _pause_game_btn.visible = YES;
-    CCLOG(@"6");
     [self removeChild:_startButton];
     [self removeChild:_no_ads_button];
     [self removeChild:_sound_button];
+    [self removeChild:_game_title];
+    
     
    [[OALSimpleAudio sharedInstance] playBgWithLoop:YES];
 }

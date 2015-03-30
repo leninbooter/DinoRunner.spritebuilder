@@ -2938,6 +2938,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -3929,8 +3931,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -4983,7 +4983,7 @@
 				<key>displayName</key>
 				<string>title-game</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>_game_title</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>

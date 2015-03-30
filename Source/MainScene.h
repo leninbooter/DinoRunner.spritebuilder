@@ -4,9 +4,8 @@
 #import <iAd/iAd.h>
 
 @interface MainScene : CCNode <CCPhysicsCollisionDelegate, ADBannerViewDelegate>{
-    ADBannerView *_adView;
 }
 
-@property(nonatomic,retain)IBOutlet ADBannerView *_adView;
+@property(nonatomic,retain)IBOutlet ADBannerView *adView;
 
 @end;
