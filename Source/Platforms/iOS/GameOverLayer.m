@@ -10,7 +10,10 @@
 
 @implementation GameOverLayer
 
+
 CCLabelTTF *_go_score_label;
+
+ 
 
 -(void)ask_restart_game
 {
@@ -24,9 +27,13 @@ CCLabelTTF *_go_score_label;
 
 -(void)set_score_to_label:(NSNotification *) notification
 {
+    
     NSLog(notification.userInfo[@"score"]);
     _go_score_label.string = notification.userInfo[@"score"];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+   _go_score_label = [CCLabelTTF labelWithString:@"Score" fontName:@"Marker Felt" fontSize:24];
+    _go_score_label.position = ccp(150, 200);
+    [self addChild:_go_score_label];
+ [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
 

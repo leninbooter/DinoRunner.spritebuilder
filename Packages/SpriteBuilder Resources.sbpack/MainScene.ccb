@@ -2321,8 +2321,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>-205.57218933105469</real>
-							<real>-4.0000061988830566</real>
+							<real>-41.275669097900391</real>
+							<real>-4.0000066757202148</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -2437,8 +2437,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>0.5</real>
-							<real>75.000015258789062</real>
+							<real>0.78257936239242554</real>
+							<real>69.579681396484375</real>
 							<integer>0</integer>
 							<integer>2</integer>
 							<integer>0</integer>
@@ -2462,8 +2462,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.5</real>
-							<real>0.5</real>
+							<real>1.0703784227371216</real>
+							<real>1.1112097501754761</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -2532,7 +2532,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>paused buttons/fireButton.png</string>
+							<string></string>
 						</array>
 					</dict>
 					<dict>
@@ -2543,7 +2543,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>paused buttons/fireButton.png</string>
+							<string></string>
 						</array>
 					</dict>
 					<dict>
@@ -2730,6 +2730,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -5215,9 +5217,9 @@
 			<key>name</key>
 			<string>cityTimeLine</string>
 			<key>offset</key>
-			<real>0.43752670288085938</real>
+			<real>0.0</real>
 			<key>position</key>
-			<real>8.0333337783813477</real>
+			<real>1.3999999761581421</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
@@ -5229,26 +5231,7 @@
 				<key>isExpanded</key>
 				<true/>
 				<key>keyframes</key>
-				<array>
-					<dict>
-						<key>easing</key>
-						<dict>
-							<key>type</key>
-							<integer>0</integer>
-						</dict>
-						<key>time</key>
-						<real>0.0</real>
-						<key>type</key>
-						<integer>11</integer>
-						<key>value</key>
-						<array>
-							<string>background-music-aac_01.wav</string>
-							<real>1</real>
-							<real>0.0</real>
-							<real>1</real>
-						</array>
-					</dict>
-				</array>
+				<array/>
 				<key>type</key>
 				<integer>10</integer>
 			</dict>

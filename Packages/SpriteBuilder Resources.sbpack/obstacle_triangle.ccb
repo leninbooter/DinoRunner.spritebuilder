@@ -85,8 +85,20 @@
 							<real>0.0</real>
 						</array>
 						<array>
-							<real>32.119064331054688</real>
-							<real>63.578094482421875</real>
+							<real>2.38222336769104</real>
+							<real>108.57599639892578</real>
+						</array>
+						<array>
+							<real>54.885326385498047</real>
+							<real>161.67720031738281</real>
+						</array>
+						<array>
+							<real>106.87431335449219</real>
+							<real>111.89463043212891</real>
+						</array>
+						<array>
+							<real>107.3609619140625</real>
+							<real>-0.11617386341094971</real>
 						</array>
 						<array>
 							<real>68</real>
@@ -101,11 +113,33 @@
 								<real>0.0</real>
 							</array>
 							<array>
-								<real>32.119064331054688</real>
-								<real>63.578094482421875</real>
+								<real>107.3609619140625</real>
+								<real>-0.11617386341094971</real>
+							</array>
+							<array>
+								<real>106.87431335449219</real>
+								<real>111.89463043212891</real>
+							</array>
+						</array>
+						<array>
+							<array>
+								<real>106.87431335449219</real>
+								<real>111.89463043212891</real>
+							</array>
+							<array>
+								<real>54.885326385498047</real>
+								<real>161.67720031738281</real>
+							</array>
+							<array>
+								<real>2.38222336769104</real>
+								<real>108.57599639892578</real>
 							</array>
 							<array>
 								<real>0.0</real>
+								<real>0.0</real>
+							</array>
+							<array>
+								<real>68</real>
 								<real>0.0</real>
 							</array>
 						</array>
@@ -167,7 +201,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Obstacle.png/obstacle 3.png</string>
+							<string>sharp wood.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -203,6 +237,8 @@
 						<array/>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -346,8 +382,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

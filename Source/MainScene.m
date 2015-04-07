@@ -6,6 +6,7 @@
 #import <CCDirector.h>
 #import "CCBReader.h"
 #import "CCTextureCache.h"
+#import "GameOverLayer.h"
 
 static const CGFloat scrollSpeed = 280.0f;
 CGFloat firstObstaclePosition;
@@ -200,10 +201,13 @@ BOOL jumping = false;
         [screen_game_over runAction:seq];
         _pause_game_btn.visible = NO;
         
+        
         NSDictionary *userInfo = @{
                                    @"score": [NSString stringWithFormat:@"%d", (int)points],
                                    };
         [[NSNotificationCenter defaultCenter] postNotificationName:@"set_score_to_label" object:self userInfo:userInfo];
+      
+        
 
         [[OALSimpleAudio sharedInstance] stopBg];
     }
