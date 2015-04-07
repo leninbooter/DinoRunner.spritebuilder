@@ -2321,7 +2321,7 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>-96.591583251953125</real>
+							<real>-205.57218933105469</real>
 							<real>-4.0000061988830566</real>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -2938,8 +2938,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -5217,9 +5215,9 @@
 			<key>name</key>
 			<string>cityTimeLine</string>
 			<key>offset</key>
-			<real>0.0</real>
+			<real>0.43752670288085938</real>
 			<key>position</key>
-			<real>3.6333334445953369</real>
+			<real>8.0333337783813477</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
@@ -5229,9 +5227,28 @@
 			<key>soundChannel</key>
 			<dict>
 				<key>isExpanded</key>
-				<false/>
+				<true/>
 				<key>keyframes</key>
-				<array/>
+				<array>
+					<dict>
+						<key>easing</key>
+						<dict>
+							<key>type</key>
+							<integer>0</integer>
+						</dict>
+						<key>time</key>
+						<real>0.0</real>
+						<key>type</key>
+						<integer>11</integer>
+						<key>value</key>
+						<array>
+							<string>background-music-aac_01.wav</string>
+							<real>1</real>
+							<real>0.0</real>
+							<real>1</real>
+						</array>
+					</dict>
+				</array>
 				<key>type</key>
 				<integer>10</integer>
 			</dict>
